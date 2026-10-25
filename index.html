@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>因數倍數跳跳看 - 3D 質感升級版</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Nunito:wght@600;700;800;900&display=swap">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=l6f5H_GbF45JcLwqFWBYfCXGpXDu6DRwfn53R_a0rSM08NCDXy3r_EyP7HfSSlqJcRBHqUr949onioqJCKm0VgQqittpDVSQgDd6xfZecVcDLvy6ruOu_R-YJHYbvpwtyUiB6vFCC7NDng-GeBV8U8svfNi6MBNlDM5lwXngoG1-v_oOklJl1CcYAPD7vVN-kuInZ3fHT6fQz6_VHjjD2ex87tenu9oTgSPD9Uc8-8MgmAfCgcgQxtJYANFRoThdxfAlSfGP0oudzdOx-blR4tx-R6KInLU-85NWjGvD2XtrOEMp4fssOK4KvRF7s8lT-0IoVnjobHL_rozmdBR-Mw" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jb250cmlidXRpb24udXNlcmNvbnRlbnQuZ29vZ2xlLmNvbS9kb3dubG9hZD9jPUNneGlZWEprWDNOMGIzSmhaMlVTVUJJTmNtVnpjRzl1YzJWZlpHRjBZUm9fQ2pCaU1HSTBPV0ZqWlRneE1ETTBPV0ZoTURBd05qVmxZV1V6TnpKbE1tTTFOVEF4TlRaaU9EZ3lNMlV6TmpObFlXSVNDeElIRUtiZTlMXzVEaGdCJmZpbGVuYW1lPWZhY3Rvci1qdW1wXzNEX1JlZGVzaWduLmh0bWwmb3BpPTEwMzEzNTA1MA"/><style>
+:root {
+  --bg: #ffffff; 
+  --mat: #ffffff; 
+  --grid: rgba(240, 244, 248, 0.6); 
+  --ink: #1a1e23; 
+  --muted: #6b7a8f; 
+  --line: #dbe4ec;
+  --accent: #ff3366; 
+  --accent-shadow: #cc0033;
+  --ok: #00d084; 
+  --ok-shadow: #009966;
+  --bad: #ff4757; 
+  --diff: #ffc048; 
+  --c1: #00a8ff; 
+  --c1-shadow: #0077b3;
+  --c2: #9c88ff; 
+  --c2-shadow: #7158e2;
+  --c1s: #e1f5fe; 
+  --cloth: #ffffff;
+  --f-display: "Nunito", "M PLUS Rounded 1c", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --f-body: "Nunito", "M PLUS Rounded 1c", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top,0px); }
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: 
+    radial-gradient(circle at 15% 10%, rgba(255, 51, 102, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(0, 168, 255, 0.04) 0%, transparent 40%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 18px;
+  line-height: 1.6;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  padding-block: 30px 60px;
+}
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+h1 {
+  font-family: var(--f-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(135deg, #ff3366, #ff7b9c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 3px 3px 6px rgba(255, 51, 102, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sub {
+  color: var(--muted);
+  margin: 0 0 10px 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+.icon-3d {
+  display: inline-block;
+  filter: drop-shadow(0px 8px 6px rgba(0,0,0,0.15)) drop-shadow(0px 4px 2px rgba(0,0,0,0.1));
+  transform: perspective(100px) translateZ(10px);
+}
+.map {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.lv {
+  font: inherit;
+  text-align: left;
+  background: white;
+  border: 2px solid var(--line);
+  color: var(--ink);
+  border-radius: 20px;
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1.35;
+  box-shadow: 0 6px 0 var(--line), 0 10px 20px rgba(0,0,0,0.04);
+  transition: all 0.15s ease;
+  position: relative;
+}
+.lv small { color: var(--muted); font-size: 14px; font-weight: 700;}
+.lv b { font-size: 19px; font-weight: 900; }
+.lv:active {
+  transform: translateY(6px);
+  box-shadow: 0 0px 0 var(--line), 0 4px 10px rgba(0,0,0,0.04);
+}
+.lv[aria-current="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 6px 0 var(--accent-shadow), 0 12px 24px rgba(255, 51, 102, 0.2);
+  z-index: 2;
+}
+.lv[aria-current="true"]::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 24px; border: 2px dashed var(--accent); opacity: 0.5; pointer-events: none;
+}
+.lv.done {
+  background: var(--c1s);
+  border-color: var(--c1);
+  box-shadow: 0 6px 0 var(--c1-shadow), 0 10px 20px rgba(0, 168, 255, 0.15);
+}
+.lv.done small::after {
+  content: " ✨ 完成";
+  color: var(--c1-shadow);
+}
+button:focus-visible, input:focus-visible { outline: 4px solid var(--accent); outline-offset: 3px; border-radius: inherit; }
+.panel {
+  background: var(--mat);
+  border: 2px solid var(--line);
+  border-radius: 32px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background-image: 
+    linear-gradient(var(--grid) 2px, transparent 2px),
+    linear-gradient(90deg, var(--grid) 2px, transparent 2px);
+  background-size: 30px 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06), inset 0 0 0 4px rgba(255,255,255,0.5);
+  position: relative;
+}
+.title {
+  font-family: var(--f-display);
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0;
+  background: var(--mat);
+  align-self: flex-start;
+  padding: 4px 16px;
+  border-radius: 12px;
+  color: var(--ink);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.lbl {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 900;
+  margin: 10px 0 0 0;
+  background: var(--mat);
+  align-self: flex-start;
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+}
+.say {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  background: var(--mat);
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+.say b { color: var(--accent); font-weight: 900; }
+.note { font-size: 17px; color: var(--muted); margin: 0; background: var(--mat); font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  font: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  border: 2px solid var(--line);
+  color: var(--muted);
+  background: var(--mat);
+  border-radius: 14px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 5px 0 var(--line), 0 8px 15px rgba(0,0,0,0.03);
+  transition: all 0.15s ease;
+}
+.btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 0px 0 var(--line), 0 3px 8px rgba(0,0,0,0.03);
+}
+.btn[aria-pressed="true"] {
+  background: var(--c1);
+  color: white;
+  border-color: var(--c1);
+  box-shadow: 0 5px 0 var(--c1-shadow), 0 8px 15px rgba(0, 168, 255, 0.2);
+}
+.btn[aria-pressed="true"]:active {
+  transform: translateY(5px);
+  box-shadow: 0 0px 0 var(--c1-shadow), 0 3px 8px rgba(0, 168, 255, 0.2);
+}
+.btn.primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 5px 0 var(--accent-shadow), 0 10px 20px rgba(255, 51, 102, 0.25);
+}
+.btn.primary:active {
+  transform: translateY(5px);
+  box-shadow: 0 0px 0 var(--accent-shadow), 0 4px 10px rgba(255, 51, 102, 0.25);
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: 0 5px 0 var(--line) !important; }
+.opt {
+  font: inherit; font-weight: 800; font-size: 18px;
+  border: 3px solid var(--line); background: var(--mat); color: var(--ink);
+  border-radius: 16px; padding: 12px 24px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  box-shadow: 0 6px 0 var(--line), 0 10px 15px rgba(0,0,0,0.04);
+  transition: all 0.15s ease;
+}
+.opt:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--line), 0 4px 10px rgba(0,0,0,0.04); }
+.opt.right { border-color: var(--ok); background: #e6f9f0; color: var(--ok-shadow); box-shadow: 0 6px 0 var(--ok-shadow), 0 10px 15px rgba(0, 208, 132, 0.2); }
+.opt.wrong { border-color: var(--bad); background: #ffebee; color: var(--bad); box-shadow: 0 6px 0 #cc0000, 0 10px 15px rgba(255, 71, 87, 0.2); }
+.stage {
+  overflow-x: auto; background: var(--mat); border: 2px solid var(--line); border-radius: 20px;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.03); padding: 10px;
+}
+svg { display: block; width: 100%; min-width: 600px; height: auto; }
+.opt svg { min-width: 0; width: 260px; }
+.eq {
+  font-size: 26px; font-weight: 900; font-variant-numeric: tabular-nums;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--mat);
+  padding: 10px 20px; border-radius: 16px; border: 2px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.frac { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.1; font-weight: 900; }
+.frac > span:first-child { border-bottom: 3px solid currentColor; padding: 0 6px; }
+.frac input {
+  width: 3.5em; font: inherit; font-size: 22px; font-weight: 900; text-align: center;
+  border: 3px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+.msg { min-height: 1.4em; font-weight: 900; font-size: 20px; margin: 0; background: var(--mat); padding: 4px 12px; border-radius: 8px;}
+.msg.ok { color: var(--ok-shadow); background: #e6f9f0; }
+.msg.bad { color: var(--bad); background: #ffebee; }
+.prog { font-size: 16px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; background: var(--mat); display: inline-block; padding: 4px 12px; border-radius: 20px; border: 2px solid var(--line); }
+.box {
+  border: 2px solid var(--line); border-radius: 24px; padding: 24px; background: var(--mat);
+  display: flex; flex-direction: column; gap: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.nums { display: flex; flex-wrap: wrap; gap: 12px; background: var(--mat); }
+.num-chip {
+  font: inherit; font-size: 20px; font-weight: 900; min-width: 56px; padding: 10px 8px;
+  border: 3px solid var(--line); border-radius: 14px; background: var(--mat); color: var(--ink);
+  cursor: pointer; font-variant-numeric: tabular-nums;
+  box-shadow: 0 6px 0 var(--line), 0 8px 12px rgba(0,0,0,0.03);
+  transition: all 0.15s ease;
+}
+.num-chip:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--line), 0 2px 5px rgba(0,0,0,0.03); }
+.num-chip.on {
+  background: var(--c1); border-color: var(--c1); color: white;
+  box-shadow: 0 6px 0 var(--c1-shadow), 0 10px 15px rgba(0, 168, 255, 0.3);
+}
+.num-chip.on:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--c1-shadow), 0 2px 5px rgba(0, 168, 255, 0.3); }
+.num {
+  width: 4.5em; font: inherit; font-weight: 900; text-align: center;
+  border: 3px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); padding: 8px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
+}
+.pass {
+  border: 3px solid var(--ok); border-radius: 20px; padding: 20px; background: #e6f9f0;
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  box-shadow: 0 10px 20px rgba(0, 208, 132, 0.15);
+}
+.wsprev canvas { width: 320px; max-width: 100%; height: auto; border: 2px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>因數倍數跳跳看 <span class="icon-3d">🐸✨</span></h1>
+  <p class="sub">從零開始學倍數、因數、公倍數、公因數｜高管質感 3D 升級版</p>
+  <nav class="map" id="map" aria-label="七個階段"></nav>
+  <section class="panel" id="panel"></section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ================= 共用 ================= */
+const NS='http://www.w3.org/2000/svg';
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const el=h=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild};
+let CUR=null;
+function sv(t,a,p,x){
+  if(typeof p!=='object'){x=p;p=CUR}
+  const e=document.createElementNS(NS,t);
+  if(t==='svg')CUR=e;
+  for(const k in a)e.setAttribute(k,a[k]);
+  if(x!=null)e.textContent=x;
+  p&&p.appendChild(e);
+  return e
+}
+const gcd=(a,b)=>b?gcd(b,a%b):a, lcm=(a,b)=>a*b/gcd(a,b);
+const fr=(t,b)=>`<span class="frac"><span>${t}</span><span>${b}</span></span>`;
+const inp=(id,lab)=>`<input id="${id}" inputmode="numeric" aria-label="${lab}">`;
+const mixed=(n,d)=>{const g=gcd(n,d);n/=g;d/=g;const w=Math.floor(n/d),r=n%d;return r?(w?`${w} 又 ${r}/${d}`:`${r}/${d}`):`${w}`};
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+
+function svgBox(h,label,w){
+  const st=el('<div class="stage"></div>');
+  const svg = sv('svg',{viewBox:`0 0 ${w||1000} ${h}`,role:'img','aria-label':label||'布條'},st);
+  // Add 3D filters for SVG elements
+  svg.innerHTML = `
+    <defs>
+      <filter id="f3d" x="-20%" y="-20%" width="150%" height="150%">
+        <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+      </filter>
+      <filter id="f3d-light" x="-20%" y="-20%" width="150%" height="150%">
+        <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.1"/>
+      </filter>
+      <filter id="glow" x="-20%" y="-20%" width="150%" height="150%">
+        <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ffc048" flood-opacity="0.8"/>
+      </filter>
+    </defs>
+  `;
+  return st
+}
+
+function bar(x,y,w,h,d,filled,col,opts){
+  opts=opts||{};const cuts=opts.cuts||[...Array(d+1)].map((_,i)=>i/d);
+  sv('rect',{x,y,width:w,height:h,fill:css('--cloth'),stroke:css('--ink'),'stroke-width':3,rx:8, filter:'url(#f3d)'});
+  const cells=[];
+  for(let i=0;i<cuts.length-1;i++){
+    const x1=x+cuts[i]*w,x2=x+cuts[i+1]*w;
+    const on=Array.isArray(filled)?filled[i]:i<filled;
+    const r=sv('rect',{x:x1+2,y:y+2,width:x2-x1-4,height:h-4,rx:4, fill:on?col:'transparent',style:opts.click?'cursor:pointer':''});
+    cells.push(r);
+    if(i>0)sv('line',{x1:x1,y1:y,x2:x1,y2:y+h,stroke:css('--ink'),'stroke-width':opts.sub&&i%opts.sub!==0?1.5:3,'stroke-dasharray':opts.sub&&i%opts.sub!==0?'6 4':''});
+  }
+  return cells
+}
+
+/* ================= 進度 ================= */
+const LV=[
+ {t:'倍數 <span class="icon-3d">🐸</span>',s:'青蛙一次跳幾格'},
+ {t:'因數 <span class="icon-3d">✂️</span>',s:'能剛好切完幾份'},
+ {t:'公倍數 <span class="icon-3d">🐸🐸</span>',s:'兩隻青蛙踩到同一格'},
+ {t:'最小公倍數 <span class="icon-3d">👑</span>',s:'第一次踩到同一格'},
+ {t:'公因數 <span class="icon-3d">📏</span>',s:'同一把尺量兩條布'},
+ {t:'最大公因數 <span class="icon-3d">🏆</span>',s:'最長的那把尺'},
+ {t:'用到分數 <span class="icon-3d">🍰</span>',s:'約分和通分'}
+];
+const NL=LV.length;
+let G={lv:0,done:[],step:{}};
+try{const s=JSON.parse(localStorage.getItem('factorJump3D')||'null');if(s)G=Object.assign(G,s)}catch(e){}
+G.step={};
+const save=()=>{try{localStorage.setItem('factorJump3D',JSON.stringify({lv:G.lv,done:G.done}))}catch(e){}};
+
+function map(){
+  const m=document.getElementById('map');m.innerHTML='';
+  LV.forEach((l,i)=>{
+    const b=el(`<button class="lv${G.done.includes(i)?' done':''}" aria-current="${i===G.lv}"><small>第 ${i+1} 階</small><b>${l.t}</b><small>${l.s}</small></button>`);
+    b.onclick=()=>{G.lv=i;G.step={};save();render();window.scrollTo({top:0,behavior:'smooth'})};
+    m.append(b);
+  })
+}
+
+function passLevel(p){
+  if(!G.done.includes(G.lv))G.done.push(G.lv);save();map();
+  const last=G.lv>=NL-1;
+  const box=el(`<div class="pass"><b style="color:var(--ok-shadow);font-size:24px;font-weight:900;">🎉 過關！</b><span style="font-weight:700;font-size:18px;">${!last?`下一階：${LV[G.lv+1].t.replace(/<[^>]*>?/gm, '')}`:'七階全部完成！超級棒！'}</span></div>`);
+  if(!last){
+    const b=el('<button class="btn primary" style="font-size:20px;">前往下一階 🚀</button>');
+    b.onclick=()=>{G.lv++;G.step={};save();render();window.scrollTo({top:0,behavior:'smooth'})};box.append(b);
+  }
+  p.append(box);
+}
+
+function practice(p,items,title){
+  p.append(el(`<p class="lbl">${title||'練習 🎯'}</p>`));
+  const k=G.step.k||0;const box=el('<div class="box"></div>');p.append(box);
+  if(k>=items.length){passLevel(p);return}
+  box.append(el(`<span class="prog">第 ${k+1} 題 ／ 共 ${items.length} 題</span>`));
+  items[k](box,()=>{
+    const nx=el(`<div class="row"><button class="btn primary" style="font-size:20px;">${k+1<items.length?'下一題 👉':'完成這一階 🎊'}</button></div>`);
+    nx.firstChild.onclick=()=>{G.step.k=k+1;render()};box.append(nx);
+  })
+}
+
+function choice(box,stem,opts,right,why,ok){
+  box.append(el(`<p class="say">${stem}</p>`));
+  const r=el('<div class="row"></div>');const msg=el('<p class="msg"></p>');let solved=false;
+  opts.forEach((o,i)=>{
+    const b=el(`<button class="opt"></button>`);b.innerHTML=o;
+    b.onclick=()=>{
+      if(solved)return;
+      if(i===right){solved=true;b.classList.add('right');msg.className='msg ok';msg.innerHTML='✅ 對了！ '+ (why[i]||'');ok()}
+      else{b.classList.add('wrong');msg.className='msg bad';msg.innerHTML='❌ ' + (why[i]||'再想想看。')}
+    };
+    r.append(b);
+  });
+  box.append(r,msg);
+}
+
+function chips(box,stem,max,want,hint,ok){
+  box.append(el(`<p class="say">${stem}</p>`));
+  const sel=new Set();const r=el('<div class="nums"></div>');
+  for(let n=1;n<=max;n++){
+    const b=el(`<button class="num-chip">${n}</button>`);
+    b.onclick=()=>{if(done)return;sel.has(n)?sel.delete(n):sel.add(n);b.classList.toggle('on',sel.has(n))};
+    r.append(b);
+  }
+  const msg=el('<p class="msg"></p>');const cb=el('<div class="row"><button class="btn primary">檢查答案 🔍</button></div>');let done=false;
+  cb.firstChild.onclick=()=>{
+    if(done)return;
+    const miss=want.filter(n=>!sel.has(n)),extra=[...sel].filter(n=>!want.includes(n));
+    if(!miss.length&&!extra.length){done=true;msg.className='msg ok';msg.innerHTML=`✅ 對了！${want.join('、')}。`;ok()}
+    else{msg.className='msg bad';msg.innerHTML=extra.length?`❌ ${extra.sort((a,b)=>a-b).join('、')} 不對喔。${hint(extra[0])}`:`❌ 還少了 ${miss.length} 個，再找找看。`}
+  };
+  box.append(r,cb,msg);
+}
+
+function numIn(box,stem,want,hint,ok){
+  const eq=el(`<div class="eq" style="font-size:24px"><span>${stem}</span><input class="num" id="ni" inputmode="numeric" aria-label="答案"><button class="btn primary">檢查 🔍</button></div>`);
+  const msg=el('<p class="msg"></p>');let done=false;
+  eq.querySelector('button').onclick=()=>{
+    if(done)return;const v=+eq.querySelector('#ni').value;
+    if(v===want){done=true;msg.className='msg ok';msg.innerHTML='✅ 對了！';ok()}
+    else{msg.className='msg bad';msg.innerHTML='❌ ' + hint(v)}
+  };
+  box.append(eq,msg);
+}
+
+const mults=(n,max)=>{const a=[];for(let k=n;k<=max;k+=n)a.push(k);return a};
+const facts=n=>{const a=[];for(let k=1;k<=n;k++)if(n%k===0)a.push(k);return a};
+
+/* 數線：0..N，青蛙跳 */
+function numberLine(N,frogs,opts){
+  opts=opts||{};const st=svgBox(opts.h||200);const X0=50,W=900,step=W/N;
+  sv('line',{x1:X0,y1:120,x2:X0+W,y2:120,stroke:css('--ink'),'stroke-width':4, filter:'url(#f3d-light)'});
+  const landed=frogs.map(f=>new Set(mults(f.n,f.k*f.n)));
+  
+  for(let i=0;i<=N;i++){
+    const x=X0+i*step;
+    const both=landed.length>1&&landed.every(s=>s.has(i));
+    const any=landed.some(s=>s.has(i));
+    sv('line',{x1:x,y1:110,x2:x,y2:130,stroke:css('--ink'),'stroke-width':2, filter:'url(#f3d-light)'});
+    if(both)sv('circle',{cx:x,cy:120,r:Math.min(18,step*.48),fill:css('--diff'), filter:'url(#glow)'});
+    if(N<=40||i%2===0||any){
+      sv('text',{x,y:155,'text-anchor':'middle','font-size':N>40?14:18,'font-weight':900,fill:both?css('--ink'):any?css('--accent-shadow'):css('--muted')},i);
+    }
+  }
+  
+  frogs.forEach((f,fi)=>{
+    const col=fi?css('--c2'):css('--c1');
+    for(let j=0;j<f.k;j++){
+      const x1=X0+j*f.n*step,x2=X0+(j+1)*f.n*step,mid=(x1+x2)/2,hgt=Math.min(80,(x2-x1)*.6)*(fi?-1:1);
+      if(fi)sv('path',{d:`M${x1} 120 Q${mid} ${120+Math.abs(hgt)+30} ${x2} 120`,fill:'none',stroke:col,'stroke-width':6, 'stroke-linecap':'round', filter:'url(#f3d)'});
+      else sv('path',{d:`M${x1} 120 Q${mid} ${120-hgt-30} ${x2} 120`,fill:'none',stroke:col,'stroke-width':6, 'stroke-linecap':'round', filter:'url(#f3d)'});
+      sv('circle',{cx:x2,cy:120,r:8,fill:col, filter:'url(#f3d)'});
+    }
+  });
+  return st;
+}
+
+/* ================= 第 1 階 倍數 ================= */
+function L1(p){
+  p.append(el('<p class="lbl">先做做看 💡</p>'));
+  p.append(el('<p class="say">小青蛙每次都跳<b>一樣多格</b>。選一隻青蛙，按「跳一下」，看看牠會踩到哪些數字。</p>'));
+  const n=G.step.n||3,k=G.step.j||0;
+  const r=el('<div class="row"><span class="note">青蛙一次跳：</span></div>');
+  [2,3,4,5,6,7,8,9].forEach(v=>{const b=el(`<button class="btn" aria-pressed="${v===n}">${v} 格</button>`);b.onclick=()=>{G.step.n=v;G.step.j=0;render()};r.append(b)});p.append(r);
+  
+  const r2=el('<div class="row"></div>');
+  const jb=el('<button class="btn primary">🐸 跳一下</button>');jb.disabled=(k+1)*n>40;jb.onclick=()=>{G.step.j=k+1;render()};
+  const rb=el('<button class="btn">🔄 回到 0</button>');rb.onclick=()=>{G.step.j=0;render()};
+  r2.append(jb,rb);p.append(r2);
+  
+  p.append(numberLine(40,[{n,k}]));
+  const ms=mults(n,k*n);
+  p.append(el(`<div class="eq">${ms.length?ms.map((m,i)=>`<span>${n}×${i+1}＝<b style="color:var(--accent)">${m}</b></span>`).join('　'):'還沒跳...'}</div>`));
+  if(ms.length>=3)p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#fef0f4; border:2px solid var(--accent); color:var(--ink);">青蛙踩到的 ${ms.join('、')}……都是 <b style="color:var(--accent); font-size:22px;">${n} 的倍數</b>。${n} 的倍數就是 ${n}×1、${n}×2、${n}×3……</p>`));
+  
+  practice(p,[
+    (b,ok)=>chips(b,'把 30 以內 <b>4 的倍數</b>全部點起來。',30,mults(4,30),x=>`${x} 不在 4 一格一格跳的路上（4×1、4×2…）。`,ok),
+    (b,ok)=>choice(b,'27 是 3 的倍數嗎？',['是','不是'],0,['3×9＝27，青蛙跳 9 次就到了。','3×9＝27，算算看。'],ok),
+    (b,ok)=>choice(b,'20 是 6 的倍數嗎？',['是','不是'],1,['6×3＝18、6×4＝24，20 被跳過了。','6×3＝18、6×4＝24，青蛙不會踩到 20。'],ok),
+    (b,ok)=>numIn(b,'7 的倍數，從小到大第 5 個是：',35,v=>`7×5＝？（你寫了 ${v}）`,ok)
+  ]);
+}
+
+/* 一條布：N 格，每段剪 s 格 */
+function cloth(x,y,w,h,N,s,colVar,label){
+  const cw=w/N,has=s>0,full=has?Math.floor(N/s)*s:0,col=css(colVar);
+  sv('rect',{x,y,width:w,height:h,fill:css('--cloth'),stroke:css('--ink'),'stroke-width':3,rx:8, filter:'url(#f3d)'});
+  for(let i=0;i<N;i++){
+    const ok=i<full,piece=has?Math.floor(i/s):0;
+    if(has)sv('rect',{x:x+i*cw+2,y:y+2,width:cw-4,height:h-4,rx:4, fill:ok?col:css('--diff'), opacity:ok?(piece%2?0.6:1):1});
+    if(i>0)sv('line',{x1:x+i*cw,y1:y,x2:x+i*cw,y2:y+h,stroke:css('--ink'),'stroke-width':1,'stroke-dasharray':'4 4'});
+  }
+  if(has)for(let j=1;j*s<N;j++)sv('line',{x1:x+j*s*cw,y1:y-6,x2:x+j*s*cw,y2:y+h+6,stroke:css('--ink'),'stroke-width':4, 'stroke-linecap':'round', filter:'url(#f3d-light)'});
+  if(label)sv('text',{x,y:y-12,'font-size':18, 'font-weight':800, fill:css('--muted')},label);
+}
+
+/* ---------- 第 2 階 因數 ---------- */
+function L2(p){
+  p.append(el('<p class="lbl">先做做看 💡</p>'));
+  const N=G.step.N||12,s=G.step.s||0,found=G.step.found||(G.step.found=[]);
+  p.append(el(`<p class="say">一條布有 <b style="font-size:26px;">${N} 格</b>。要剪成<b>一樣長</b>的小段，而且<b>不能剩</b>。每段剪幾格，才能剛好剪完？</p>`));
+  
+  const r0=el('<div class="row"><span class="note">換一條布：</span></div>');
+  [12,18,20,24,7].forEach(v=>{const b=el(`<button class="btn" aria-pressed="${v===N}">${v} 格</button>`);
+    b.onclick=()=>{G.step.N=v;G.step.s=0;G.step.found=[];render()};r0.append(b)});p.append(r0);
+    
+  const r1=el('<div class="row"><span class="note">每段剪：</span></div>');
+  for(let v=1;v<=N;v++){const b=el(`<button class="btn" aria-pressed="${v===s}">${v} 格</button>`);
+    b.onclick=()=>{G.step.s=v;if(N%v===0&&!found.includes(v))found.push(v);render()};r1.append(b)}
+  p.append(r1);
+  
+  const st=svgBox(120,`${N} 格的布`);cloth(30,40,940,56,N,s,'--c1');p.append(st);
+  
+  if(s){
+    const q=Math.floor(N/s),rem=N%s;
+    p.append(el(rem===0
+      ?`<p class="msg ok">✂️ 每段 ${s} 格，剪成 ${q} 段，剛好剪完！${s}×${q}＝${N}，所以 <b>${s}</b> 和 <b>${q}</b> 都是 ${N} 的因數。</p>`
+      :`<p class="msg bad">⚠️ 每段 ${s} 格，剪了 ${q} 段還剩 ${rem} 格（黃色）。所以 ${s} 不是 ${N} 的因數。</p>`));
+  } else {
+    p.append(el('<p class="note">👇 選一個長度試試看。</p>'));
+  }
+  
+  const all=facts(N),got=[...found].sort((a,b)=>a-b);
+  p.append(el(`<div class="eq">已找到剛好剪完的長度：<b style="color:var(--accent)">${got.length?got.join('、'):'（還沒有）'}</b></div>`));
+  
+  if(all.every(f=>found.includes(f))) {
+    p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#f0f9ff; border:2px solid var(--c1); color:var(--ink);">全部找到了！🎉 <b>${N} 的因數</b>有 <b style="color:var(--c1-shadow); font-size:22px">${all.join('、')}</b>。因數就是「能把 ${N} 剛好分完」的數。${all.length===2?`<br>${N} 只有 1 和自己兩個因數。`:''}</p>`));
+  }
+  
+  practice(p,[
+    (b,ok)=>chips(b,'把 <b>12 的因數</b>全部點起來。',12,facts(12),x=>`${x} 不能把 12 剛好分完（12÷${x} 有餘數）。`,ok),
+    (b,ok)=>choice(b,'8 是 24 的因數嗎？',['是','不是'],0,['24÷8＝3，剛好分完，所以 8 是 24 的因數。','24÷8＝3 沒有餘數，再算算看。'],ok),
+    (b,ok)=>choice(b,'5 是 18 的因數嗎？',['是','不是'],1,['18÷5＝3 …… 3，會剩 3 格。','18÷5 會剩下 3，不能剛好分完。'],ok),
+    (b,ok)=>numIn(b,'20 一共有幾個因數？',6,v=>`試試 1、2、4、5、10、20，數數看。（你寫了 ${v}）`,ok)
+  ]);
+}
+
+/* ---------- 第 3 階 公倍數 ---------- */
+const PAIRS3=[[2,3],[3,4],[4,6],[2,5],[6,9]];
+function L3(p){
+  p.append(el('<p class="lbl">先做做看 💡</p>'));
+  const pr=G.step.pr||PAIRS3[0],a=pr[0],b=pr[1];
+  p.append(el(`<p class="say">兩隻青蛙都從 0 出發。<b style="color:var(--c1)">紅蛙</b>一次跳 ${a} 格，<b style="color:var(--c2)">藍蛙</b>一次跳 ${b} 格。兩隻<b>都踩到</b>的格子（發光黃點）就是<b>公倍數</b>。</p>`));
+  
+  const r=el('<div class="row"><span class="note">換一組：</span></div>');
+  PAIRS3.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===a&&q[1]===b}">${q[0]} 和 ${q[1]}</button>`);bt.onclick=()=>{G.step.pr=q;render()};r.append(bt)});p.append(r);
+  
+  p.append(numberLine(40,[{n:a,k:Math.floor(40/a)},{n:b,k:Math.floor(40/b)}],{h:220}));
+  const ma=mults(a,40),mb=mults(b,40),cm=ma.filter(x=>x%b===0);
+  
+  p.append(el(`<div class="eq" style="flex-direction:column;align-items:flex-start;gap:8px">
+    <span>${a} 的倍數：${ma.join('、')}</span>
+    <span>${b} 的倍數：${mb.join('、')}</span>
+    <span style="background:#fff3cd; padding:4px 12px; border-radius:8px; border:2px solid #ffeeba;"><b>🎯 公倍數：<span style="color:#d39e00">${cm.join('、')}</span></b>……</span>
+  </div>`));
+  
+  p.append(el(`<p class="note">公倍數是「${a} 的倍數，同時也是 ${b} 的倍數」。往後還有很多，永遠找不完。</p>`));
+  
+  practice(p,[
+    (b,ok)=>chips(b,'把 30 以內 <b>2 和 3 的公倍數</b>全部點起來。',30,mults(2,30).filter(x=>x%3===0),x=>x%2?`${x} 不是 2 的倍數。`:`${x} 不是 3 的倍數。`,ok),
+    (b,ok)=>choice(b,'12 是 3 和 4 的公倍數嗎？',['是','不是'],0,['3×4＝12、4×3＝12，兩隻青蛙都會踩到 12。','3×4＝12、4×3＝12，算算看。'],ok),
+    (b,ok)=>choice(b,'20 是 4 和 6 的公倍數嗎？',['是','不是'],1,['4×5＝20，但 6 的倍數是 6、12、18、24，沒有 20。','6 的倍數是 6、12、18、24，沒有 20。'],ok),
+    (b,ok)=>numIn(b,'6 和 8 的公倍數，48 以內共有幾個？',2,v=>`6 和 8 都踩到的是 24、48。數數看。（你寫了 ${v}）`,ok),
+    (b,ok)=>choice(b,'哪一個是 4 和 10 的公倍數？',['20','24','30','35'],0,['4×5＝20，10×2＝20。','24 不是 10 的倍數。','30 不是 4 的倍數。','35 不是 4 的倍數。'],ok)
+  ]);
+}
+
+/* ---------- 第 4 階 最小公倍數 ---------- */
+const PAIRS4=[[2,3],[4,6],[6,8],[5,7],[4,10],[9,12]];
+function lcmHint(a,b){return v=>{const L=lcm(a,b);if(v%a||v%b)return `${v} 還不是 ${a} 和 ${b} 的公倍數。`;if(v>L)return `${v} 是公倍數，但不是最小的，往前找找。`;return '再算算看。'}}
+function L4(p){
+  p.append(el('<p class="lbl">先做做看 💡</p>'));
+  const pr=G.step.pr4||PAIRS4[0],a=pr[0],b=pr[1],L=lcm(a,b),N=Math.min(60,L*2);
+  p.append(el(`<p class="say">公倍數有很多個，其中<b>第一次</b>兩隻青蛙踩到同一格的，就是<b>最小公倍數</b> 👑。</p>`));
+  
+  const r=el('<div class="row"><span class="note">換一組：</span></div>');
+  PAIRS4.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===a&&q[1]===b}">${q[0]} 和 ${q[1]}</button>`);bt.onclick=()=>{G.step.pr4=q;render()};r.append(bt)});p.append(r);
+  
+  const st=numberLine(N,[{n:a,k:Math.floor(N/a)},{n:b,k:Math.floor(N/b)}],{h:220});
+  const cx=50+L*900/N;
+  sv('circle',{cx,cy:120,r:Math.min(24,900/N*.7),fill:'none',stroke:css('--accent'),'stroke-width':5, filter:'url(#f3d)'}, st.firstChild);
+  sv('text',{x:cx,y:80,'text-anchor':'middle','font-size':18,'font-weight':900,fill:css('--accent-shadow')},'✨ 最小公倍數', st.firstChild);
+  p.append(st);
+  
+  const big=Math.max(a,b),small=Math.min(a,b);
+  p.append(el(`<div class="eq" style="flex-direction:column;align-items:flex-start;gap:8px">
+    <span>${a} 的倍數：${mults(a,L).join('、')}</span>
+    <span>${b} 的倍數：${mults(b,L).join('、')}</span>
+    <span style="background:#ffebee; padding:4px 12px; border-radius:8px; border:2px solid #ffcdd2;"><b>🏆 ${a} 和 ${b} 的最小公倍數 ＝ <span style="color:var(--accent-shadow); font-size:32px;">${L}</span></b></span>
+  </div>`));
+  
+  p.append(el(`<p class="note" style="padding:10px 16px; background:#f4f7f6; border-radius:12px; border:2px dashed #b0bec5; color:#455a64;">💡 <b>小技巧：</b>從比較大的數 ${big} 的倍數開始（${big}、${big*2}、${big*3}……），一個一個檢查是不是 ${small} 的倍數，第一個找到的就是最小公倍數。</p>`));
+  
+  practice(p,[
+    (b,ok)=>numIn(b,'6 和 9 的最小公倍數是：',18,lcmHint(6,9),ok),
+    (b,ok)=>numIn(b,'4 和 10 的最小公倍數是：',20,lcmHint(4,10),ok),
+    (b,ok)=>numIn(b,'3 和 5 的最小公倍數是：',15,lcmHint(3,5),ok),
+    (b,ok)=>numIn(b,'A 公車每 6 分鐘一班，B 公車每 8 分鐘一班。兩路公車同時發車後，至少要幾分鐘才會再同時發車？',24,lcmHint(6,8),ok),
+    (b,ok)=>numIn(b,'12 和 18 的最小公倍數是：',36,lcmHint(12,18),ok)
+  ]);
+}
+
+/* ---------- 第 5 階 公因數 ---------- */
+const PAIRS5=[[12,18],[8,12],[16,24],[15,20]];
+function L5(p){
+  p.append(el('<p class="lbl">先做做看 💡</p>'));
+  const pr=G.step.pr5||PAIRS5[0],a=pr[0],b=pr[1],s=G.step.s||0,found=G.step.found||(G.step.found=[]);
+  p.append(el(`<p class="say">有一條 <b style="color:var(--c1-shadow)">${a} 格</b>的藍布和一條 <b style="color:var(--c2-shadow)">${b} 格</b>的紫布。用同一把<b>尺 📏</b>，每次量一樣長，兩條布都要<b>剛好量完不剩</b>。尺可以是多長？</p>`));
+  
+  const r0=el('<div class="row"><span class="note">換兩條布：</span></div>');
+  PAIRS5.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===a&&q[1]===b}">${q[0]} 和 ${q[1]}</button>`);
+    bt.onclick=()=>{G.step.pr5=q;G.step.s=0;G.step.found=[];render()};r0.append(bt)});p.append(r0);
+    
+  const r1=el('<div class="row"><span class="note">尺長：</span></div>');
+  for(let v=1;v<=Math.min(a,b);v++){const bt=el(`<button class="btn" aria-pressed="${v===s}">${v} 格</button>`);
+    bt.onclick=()=>{G.step.s=v;if(a%v===0&&b%v===0&&!found.includes(v))found.push(v);render()};r1.append(bt)}
+  p.append(r1);
+  
+  const mx=Math.max(a,b),st=svgBox(220,'兩條布');
+  cloth(30,40,920*a/mx,56,a,s,'--c1',`藍布 ${a} 格`);
+  cloth(30,140,920*b/mx,56,b,s,'--c2',`紫布 ${b} 格`);
+  p.append(st);
+  
+  if(s){
+    const ra=a%s,rb=b%s;
+    p.append(el(`<p class="msg ${ra||rb?'bad':'ok'}" style="font-size:20px; padding:12px 20px;">📏 尺長 ${s}：藍布${ra?`會剩 ${ra} 格`:'剛好量完'}，紫布${rb?`會剩 ${rb} 格`:'剛好量完'}。<br>${ra||rb?`⚠️ ${s} 不是公因數。`:`✅ <b>${s}</b> 同時是 ${a} 和 ${b} 的因數，叫做<b>公因數</b>！`}</p>`));
+  } else {
+    p.append(el('<p class="note">👇 選一個尺長試試看。</p>'));
+  }
+  
+  const cf=facts(a).filter(x=>b%x===0),got=[...found].sort((x,y)=>x-y);
+  p.append(el(`<div class="eq">已找到的公因數：<b style="color:var(--ok-shadow)">${got.length?got.join('、'):'（還沒有）'}</b></div>`));
+  
+  if(cf.every(f=>found.includes(f))) {
+    p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#e8f5e9; border:2px solid var(--ok); color:#1b5e20;">全部找到了！🎉 ${a} 和 ${b} 的公因數有 <b style="font-size:22px">${cf.join('、')}</b>。公因數就是「兩個數都能整除」的數。</p>`));
+  }
+  
+  practice(p,[
+    (b,ok)=>chips(b,'把 <b>12 和 18 的公因數</b>全部點起來。',18,facts(12).filter(x=>18%x===0),x=>12%x?`${x} 不是 12 的因數。`:`${x} 不是 18 的因數。`,ok),
+    (b,ok)=>choice(b,'4 是 8 和 12 的公因數嗎？',['是','不是'],0,['8÷4＝2、12÷4＝3，兩個都整除。','8÷4＝2、12÷4＝3，算算看。'],ok),
+    (b,ok)=>choice(b,'6 是 12 和 15 的公因數嗎？',['是','不是'],1,['12÷6＝2，但 15÷6 會剩 3。','15÷6 會剩 3，不能整除。'],ok),
+    (b,ok)=>numIn(b,'16 和 24 的公因數共有幾個？',4,v=>`公因數是 1、2、4、8。數數看。（你寫了 ${v}）`,ok)
+  ]);
+}
+
+/* ---------- 第 6 階 最大公因數 ---------- */
+const PAIRS6=[[12,18],[8,12],[16,24],[15,20],[18,30]];
+function gcdHint(a,b){return v=>{const g=gcd(a,b);if(v<=0||a%v||b%v)return `${v} 不是 ${a} 和 ${b} 的公因數。`;if(v<g)return `${v} 是公因數，但還有更大的。`;return '再算算看。'}}
+function L6(p){
+  p.append(el('<p class="lbl">先做做看 💡</p>'));
+  const pr=G.step.pr6||PAIRS6[0],a=pr[0],b=pr[1],g=gcd(a,b),fa=facts(a),fb=facts(b),cf=fa.filter(x=>b%x===0);
+  p.append(el(`<p class="say">公因數有好幾個，其中<b>最長</b>的那把尺，就是<b>最大公因數</b> 🏆。</p>`));
+  
+  const r=el('<div class="row"><span class="note">換兩條布：</span></div>');
+  PAIRS6.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===a&&q[1]===b}">${q[0]} 和 ${q[1]}</button>`);bt.onclick=()=>{G.step.pr6=q;render()};r.append(bt)});p.append(r);
+  
+  const mx=Math.max(a,b),st=svgBox(220,'最長的尺');
+  cloth(30,40,920*a/mx,56,a,g,'--c1',`藍布 ${a} 格，尺長 ${g}`);
+  cloth(30,140,920*b/mx,56,b,g,'--c2',`紫布 ${b} 格，尺長 ${g}`);
+  p.append(st);
+  
+  p.append(el(`<div class="eq" style="flex-direction:column;align-items:flex-start;gap:8px">
+    <span>${a} 的因數：${fa.join('、')}</span>
+    <span>${b} 的因數：${fb.join('、')}</span>
+    <span>公因數：${cf.join('、')}</span>
+    <span style="background:#fff8e1; padding:6px 16px; border-radius:12px; border:2px solid #ffecb3;"><b>🏆 ${a} 和 ${b} 的最大公因數 ＝ <span style="color:#f57f17; font-size:32px">${g}</span></b></span>
+  </div>`));
+  
+  p.append(el(`<p class="note" style="padding:10px 16px; background:#f4f7f6; border-radius:12px; border:2px dashed #b0bec5; color:#455a64;">💡 <b>小技巧：</b>從比較小的數 ${Math.min(a,b)} 的因數開始，由大往小檢查，第一個也是另一個數的因數的，就是最大公因數。</p>`));
+  
+  practice(p,[
+    (b,ok)=>numIn(b,'12 和 16 的最大公因數是：',4,gcdHint(12,16),ok),
+    (b,ok)=>numIn(b,'18 和 24 的最大公因數是：',6,gcdHint(18,24),ok),
+    (b,ok)=>numIn(b,'20 和 30 的最大公因數是：',10,gcdHint(20,30),ok),
+    (b,ok)=>numIn(b,'有 24 格的藍布和 36 格的紫布，要剪成一樣長、不能剩的小段，每段最長幾格？',12,gcdHint(24,36),ok),
+    (b,ok)=>choice(b,'7 和 9 的最大公因數是多少？',['1','3','7','9'],0,['7 和 9 除了 1 以外沒有共同的因數。','3 不是 7 的因數。','7 不是 9 的因數。','9 不是 7 的因數。'],ok),
+    (b,ok)=>numIn(b,'15 和 45 的最大公因數是：',15,gcdHint(15,45),ok)
+  ]);
+}
+
+/* ---------- 第 7 階 用到分數 ---------- */
+const FIN=(i0,i1)=>`<span class="frac"><span>${inp('i'+i0,'分子')}</span><span>${inp('i'+i1,'分母')}</span></span>`;
+const FINN=(i,den)=>`<span class="frac"><span>${inp('i'+i,'分子')}</span><span>${den}</span></span>`;
+function fillIn(box,html,wants,ok,extra){
+  const eq=el(`<div class="eq" style="background:#f8f9fa;">${html}<button class="btn primary">檢查 🔍</button></div>`),msg=el('<p class="msg"></p>');let done=false;
+  eq.querySelector('button').onclick=()=>{
+    if(done)return;const v=wants.map((_,i)=>+eq.querySelector('#i'+i).value);
+    if(v.every((x,i)=>x===wants[i])){done=true;msg.className='msg ok';msg.innerHTML='✅ 對了！';ok()}
+    else{msg.className='msg bad';msg.innerHTML='❌ ' + ((extra&&extra(v))||'再算算看。')}
+  };
+  box.append(eq,msg);
+}
+const FR7=[[8,12],[6,9],[12,18],[10,15]];
+const PA7=[[[1,4],[1,6]],[[1,2],[1,3]],[[3,4],[5,6]],[[2,3],[3,4]]];
+function L7(p){
+  p.append(el('<p class="lbl">先做做看：約分 🍰</p>'));
+  const f=G.step.f||FR7[0],g=gcd(f[0],f[1]);
+  p.append(el(`<p class="say">${fr(f[0],f[1])} 的分子和分母有公因數，<b>最大公因數是 ${g}</b>。分子分母<b>同除以 ${g}</b>，分數的大小不變，就約成<b>最簡分數</b>。</p>`));
+  
+  const r=el('<div class="row"><span class="note">換一個分數：</span></div>');
+  FR7.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===f[0]&&q[1]===f[1]}">${q[0]}/${q[1]}</button>`);bt.onclick=()=>{G.step.f=q;render()};r.append(bt)});p.append(r);
+  
+  const st=svgBox(160,'約分前後的布條');
+  bar(30,20,920,48,f[1],f[0],css('--c1'));
+  bar(30,90,920,48,f[1]/g,f[0]/g,css('--c1'));
+  p.append(st);
+  
+  p.append(el(`<div class="eq" style="justify-content:center;">${fr(f[0],f[1])} ＝ ${fr(`${f[0]}÷${g}`,`${f[1]}÷${g}`)} ＝ <span style="color:var(--accent-shadow); font-size:32px;">${fr(f[0]/g,f[1]/g)}</span></div>`));
+  
+  p.append(el('<p class="lbl">先做做看：通分 🍕</p>'));
+  const q=G.step.q||PA7[0],[x,y]=q,L=lcm(x[1],y[1]),nx=x[0]*L/x[1],ny=y[0]*L/y[1];
+  p.append(el(`<p class="say">分母不同的分數要一起算，要先把分母變成一樣。新的分母用兩個分母的<b>最小公倍數</b> ${L}，這叫<b>通分</b>。</p>`));
+  
+  const r2=el('<div class="row"><span class="note">換兩個分數：</span></div>');
+  PA7.forEach(z=>{const bt=el(`<button class="btn" aria-pressed="${z===q||(z[0][0]===x[0]&&z[0][1]===x[1]&&z[1][0]===y[0]&&z[1][1]===y[1])}">${z[0][0]}/${z[0][1]} 和 ${z[1][0]}/${z[1][1]}</button>`);bt.onclick=()=>{G.step.q=z;render()};r2.append(bt)});p.append(r2);
+  
+  const st2=svgBox(260,'通分前後的布條');
+  bar(30,14,920,44,x[1],x[0],css('--c1'));
+  bar(30,70,920,44,L,nx,css('--c1'),{sub:L/x[1]});
+  bar(30,144,920,44,y[1],y[0],css('--c2'));
+  bar(30,200,920,44,L,ny,css('--c2'),{sub:L/y[1]});
+  p.append(st2);
+  
+  const sum=nx+ny;
+  p.append(el(`<div class="eq" style="font-size:22px; justify-content:center;">${fr(x[0],x[1])} ＝ ${fr(`${x[0]}×${L/x[1]}`,`${x[1]}×${L/x[1]}`)} ＝ ${fr(nx,L)}</div>`));
+  p.append(el(`<div class="eq" style="font-size:22px; justify-content:center;">${fr(y[0],y[1])} ＝ ${fr(`${y[0]}×${L/y[1]}`,`${y[1]}×${L/y[1]}`)} ＝ ${fr(ny,L)}</div>`));
+  
+  const sg=gcd(sum,L);
+  p.append(el(`<div class="eq" style="background:#fff8e1; border-color:#ffe082; justify-content:center;">${fr(x[0],x[1])} ＋ ${fr(y[0],y[1])} ＝ ${fr(nx,L)} ＋ ${fr(ny,L)} ＝ ${fr(sum,L)}${sum>L||sg>1?` ＝ <b style="color:var(--accent-shadow)">${mixed(sum,L)}</b>`:''}</div>`));
+  
+  practice(p,[
+    (b,ok)=>choice(b,'把 12/18 約分，分子分母同除以多少，一次就能約成最簡分數？',['2','3','6','9'],2,['除以 2 得到 6/9，還能再約。','除以 3 得到 4/6，還能再約。','12 和 18 的最大公因數是 6，12/18＝2/3。','9 不是 12 的因數。'],ok),
+    (b,ok)=>fillIn(b,`把 ${fr(18,24)} 約成最簡分數： ＝ ${FIN(0,1)}`,[3,4],ok,v=>(v[0]*24===v[1]*18)?'大小對了，但還能再約，找最大公因數。':'分子分母要同除以同一個數。'),
+    (b,ok)=>choice(b,'把 1/4 和 1/6 通分，分母最好用哪一個？',['10','12','24'],1,['10 不是 4 的倍數。','4 和 6 的最小公倍數是 12。','24 也可以，但不是最小的，數字會比較大。'],ok),
+    (b,ok)=>fillIn(b,`${fr(1,4)} ＝ ${FINN(0,12)}　　${fr(1,6)} ＝ ${FINN(1,12)}`,[3,2],ok),
+    (b,ok)=>fillIn(b,`${fr(3,4)} ＋ ${fr(5,6)} ＝ ${FINN(0,12)} ＋ ${FINN(1,12)}`,[9,10],ok),
+    (b,ok)=>choice(b,'3/4 和 5/6，哪一個比較大？',['3/4','5/6'],1,['3/4＝9/12，5/6＝10/12，所以 3/4 比較小。','3/4＝9/12，5/6＝10/12，5/6 比較大。'],ok)
+  ]);
+}
+
+/* ================= 練習單 ================= */
+const rnd=(a,b)=>a+(Math.random()*(b-a+1)|0);
+function pickPairs(lo,hi,needG,n,ok){
+  const seen=new Set(),out=[];let guard=0;
+  while(out.length<n&&guard++<500){
+    const a=rnd(lo,hi),b=rnd(lo,hi);
+    if(a===b)continue;if(needG&&gcd(a,b)<2)continue;if(ok&&!ok(a,b))continue;
+    const k=Math.min(a,b)+','+Math.max(a,b);if(seen.has(k))continue;
+    seen.add(k);out.push([a,b])
+  }
+  return out
+}
+function gen(lv){
+  if(lv===0)return shuffle([2,3,4,5,6,7,8,9,11,12]).map(n=>({q:`${n} 的倍數（由小到大寫 5 個）：`,a:mults(n,n*5).join('、')}));
+  if(lv===1)return shuffle([12,16,18,20,24,28,30,36,40,42]).map(n=>({q:`${n} 的因數有哪些？`,a:facts(n).join('、')}));
+  if(lv===2)return pickPairs(2,9,false,10,(a,b)=>lcm(a,b)<=50).map(([a,b])=>({q:`${a} 和 ${b} 的公倍數（50 以內）：`,a:mults(a,50).filter(x=>x%b===0).join('、')}));
+  if(lv===3)return pickPairs(2,12,false,10).map(([a,b])=>({q:`${a} 和 ${b} 的最小公倍數是：`,a:String(lcm(a,b))}));
+  if(lv===4)return pickPairs(6,36,true,10).map(([a,b])=>({q:`${a} 和 ${b} 的公因數有哪些？`,a:facts(a).filter(x=>b%x===0).join('、')}));
+  if(lv===5)return pickPairs(6,48,true,10).map(([a,b])=>({q:`${a} 和 ${b} 的最大公因數是：`,a:String(gcd(a,b))}));
+  const out=[];
+  pickPairs(6,36,true,5).forEach(([a,b])=>{const g=gcd(a,b);out.push({q:`把 ${a}/${b} 約成最簡分數：`,a:`${a/g}/${b/g}`})});
+  pickPairs(2,9,false,5).forEach(([c,d])=>{const a=rnd(1,c-1),b=rnd(1,d-1),L=lcm(c,d);
+    out.push({q:`把 ${a}/${c} 和 ${b}/${d} 通分（用最小公分母）：`,a:`${a*L/c}/${L} 和 ${b*L/d}/${L}`})});
+  return out
+}
+function drawSheet(items,title,showAns){
+  const S=2,W=794,H=1123,c=document.createElement('canvas');c.width=W*S;c.height=H*S;
+  const x=c.getContext('2d');x.scale(S,S);x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#000';
+  const F='"Nunito", "M PLUS Rounded 1c", "PingFang TC", "Microsoft JhengHei", sans-serif';
+  x.font=`900 32px ${F}`;x.fillText(title+(showAns?'（解答）':''),50,80);
+  x.font=`700 18px ${F}`;x.fillText('姓名：__________　日期：__________　得分：_____ / 10',50,120);
+  items.forEach((it,i)=>{
+    const y=180+i*95;
+    x.fillStyle='#2b2b2b';x.font=`700 22px ${F}`;x.fillText(`${i+1}. ${it.q}`,50,y);
+    if(showAns){x.fillStyle='#ff3366';x.fillText('答：'+it.a,80,y+38)}
+    else{x.strokeStyle='#dbe4ec';x.lineWidth=2;x.beginPath();x.moveTo(80,y+42);x.lineTo(740,y+42);x.stroke()}
+  });
+  return c
+}
+function worksheet(p){
+  p.append(el('<p class="lbl">練習單 📝</p>'));
+  const box=el('<div class="box"></div>'),prev=el('<div class="wsprev" style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;"></div>'),row=el('<div class="row"></div>');
+  const gb=el('<button class="btn primary" style="font-size:20px;">📄 產生這階的練習單 (10題)</button>'),dl=el('<button class="btn" disabled>⬇️ 下載 PDF (題目+解答)</button>');
+  const title=`因數倍數練習單　第 ${G.lv+1} 階：${LV[G.lv].t.replace(/<[^>]*>?/gm, '')}`;let sheets=null;
+  
+  gb.onclick=async()=>{
+    try{await document.fonts.ready}catch(e){}
+    const items=gen(G.lv),q=drawSheet(items,title,false),a=drawSheet(items,title,true);
+    sheets=[q,a];prev.innerHTML='';prev.append(q,a);dl.disabled=false;
+  };
+  dl.onclick=()=>{
+    if(!sheets)return;
+    if(!window.jspdf){alert('PDF 工具載入失敗，請確認網路連線後重新整理。');return}
+    const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
+    pdf.addImage(sheets[0].toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);pdf.addPage();
+    pdf.addImage(sheets[1].toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);
+    pdf.save(`因數倍數練習單-3D升級版-第${G.lv+1}階.pdf`);
+  };
+  row.append(gb,dl);box.append(row,prev);p.append(box);
+}
+
+/* ================= 主畫面 ================= */
+const LEVELS=[L1,L2,L3,L4,L5,L6,L7];
+function render(){
+  map();
+  const p=document.getElementById('panel');p.innerHTML='';
+  p.append(el(`<h2 class="title">第 ${G.lv+1} 階　${LV[G.lv].t}</h2>`));
+  LEVELS[G.lv](p);
+  worksheet(p);
+}
+render();
+</script>
+</body>
+</html>
