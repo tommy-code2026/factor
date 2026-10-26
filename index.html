@@ -3,27 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>因數倍數跳跳看 - 3D 質感升級版 (含短除法與輾轉相除法)</title>
+<title>海洋數學探險 - 因數倍數進階題庫</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Nunito:wght@600;700;800;900&display=swap">
 <style>
 :root {
-  --bg: #ffffff; 
-  --mat: #ffffff; 
-  --grid: rgba(240, 244, 248, 0.6); 
-  --ink: #1a1e23; 
-  --muted: #6b7a8f; 
-  --line: #dbe4ec;
-  --accent: #ff3366; 
-  --accent-shadow: #cc0033;
-  --ok: #00d084; 
-  --ok-shadow: #009966;
-  --bad: #ff4757; 
-  --diff: #ffc048; 
-  --c1: #00a8ff; 
-  --c1-shadow: #0077b3;
-  --c2: #9c88ff; 
-  --c2-shadow: #7158e2;
-  --c1s: #e1f5fe; 
+  --bg: #eff9fb;
+  --mat: #ffffff;
+  --grid: rgba(25, 118, 140, 0.045);
+  --ink: #153746;
+  --muted: #547887;
+  --line: #c9e1e7;
+  --accent: #087f8c;
+  --accent-shadow: #075c68;
+  --ok: #2a9d82;
+  --ok-shadow: #19735e;
+  --bad: #c95c62;
+  --diff: #f0c96a;
+  --c1: #159bb5;
+  --c1-shadow: #08728b;
+  --c2: #527fc6;
+  --c2-shadow: #365f9a;
+  --c1s: #e2f4f6;
   --cloth: #ffffff;
   --f-display: "Nunito", "M PLUS Rounded 1c", "PingFang TC", "Microsoft JhengHei", sans-serif;
   --f-body: "Nunito", "M PLUS Rounded 1c", "PingFang TC", "Microsoft JhengHei", sans-serif;
@@ -34,8 +34,8 @@ body {
   margin: 0;
   background: var(--bg);
   background-image: 
-    radial-gradient(circle at 15% 10%, rgba(255, 51, 102, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 85% 90%, rgba(0, 168, 255, 0.04) 0%, transparent 40%);
+    radial-gradient(circle at 12% 8%, rgba(21, 155, 181, 0.12) 0%, transparent 38%),
+    radial-gradient(circle at 88% 92%, rgba(82, 127, 198, 0.10) 0%, transparent 42%);
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--f-body);
@@ -57,10 +57,10 @@ h1 {
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 900;
   margin: 0;
-  background: linear-gradient(135deg, #ff3366, #ff7b9c);
+  background: linear-gradient(135deg, #087f8c, #51b7c1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 3px 3px 6px rgba(255, 51, 102, 0.15);
+  text-shadow: 0 5px 18px rgba(8, 127, 140, 0.14);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -107,7 +107,7 @@ h1 {
 }
 .lv[aria-current="true"] {
   border-color: var(--accent);
-  box-shadow: 0 6px 0 var(--accent-shadow), 0 12px 24px rgba(255, 51, 102, 0.2);
+  box-shadow: 0 6px 0 var(--accent-shadow), 0 12px 24px rgba(8, 127, 140, 0.18);
   z-index: 2;
 }
 .lv[aria-current="true"]::after {
@@ -196,21 +196,21 @@ button:focus-visible, input:focus-visible { outline: 4px solid var(--accent); ou
   background: var(--c1);
   color: white;
   border-color: var(--c1);
-  box-shadow: 0 5px 0 var(--c1-shadow), 0 8px 15px rgba(0, 168, 255, 0.2);
+  box-shadow: 0 5px 0 var(--c1-shadow), 0 8px 15px rgba(21, 155, 181, 0.2);
 }
 .btn[aria-pressed="true"]:active {
   transform: translateY(5px);
-  box-shadow: 0 0px 0 var(--c1-shadow), 0 3px 8px rgba(0, 168, 255, 0.2);
+  box-shadow: 0 0px 0 var(--c1-shadow), 0 3px 8px rgba(21, 155, 181, 0.2);
 }
 .btn.primary {
   background: var(--accent);
   color: white;
   border-color: var(--accent);
-  box-shadow: 0 5px 0 var(--accent-shadow), 0 10px 20px rgba(255, 51, 102, 0.25);
+  box-shadow: 0 5px 0 var(--accent-shadow), 0 10px 20px rgba(8, 127, 140, 0.22);
 }
 .btn.primary:active {
   transform: translateY(5px);
-  box-shadow: 0 0px 0 var(--accent-shadow), 0 4px 10px rgba(255, 51, 102, 0.25);
+  box-shadow: 0 0px 0 var(--accent-shadow), 0 4px 10px rgba(8, 127, 140, 0.22);
 }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: 0 5px 0 var(--line) !important; }
 .opt {
@@ -222,8 +222,8 @@ button:focus-visible, input:focus-visible { outline: 4px solid var(--accent); ou
   transition: all 0.15s ease;
 }
 .opt:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--line), 0 4px 10px rgba(0,0,0,0.04); }
-.opt.right { border-color: var(--ok); background: #e6f9f0; color: var(--ok-shadow); box-shadow: 0 6px 0 var(--ok-shadow), 0 10px 15px rgba(0, 208, 132, 0.2); }
-.opt.wrong { border-color: var(--bad); background: #ffebee; color: var(--bad); box-shadow: 0 6px 0 #cc0000, 0 10px 15px rgba(255, 71, 87, 0.2); }
+.opt.right { border-color: var(--ok); background: #e5f5f0; color: var(--ok-shadow); box-shadow: 0 6px 0 var(--ok-shadow), 0 10px 15px rgba(42, 157, 130, 0.18); }
+.opt.wrong { border-color: var(--bad); background: #fbebeb; color: var(--bad); box-shadow: 0 6px 0 #9d454a, 0 10px 15px rgba(201, 92, 98, 0.16); }
 .stage {
   overflow-x: auto; background: var(--mat); border: 2px solid var(--line); border-radius: 20px;
   box-shadow: inset 0 4px 10px rgba(0,0,0,0.03); padding: 10px;
@@ -244,8 +244,8 @@ svg { display: block; width: 100%; min-width: 600px; height: auto; }
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 .msg { min-height: 1.4em; font-weight: 900; font-size: 20px; margin: 0; background: var(--mat); padding: 8px 16px; border-radius: 12px;}
-.msg.ok { color: var(--ok-shadow); background: #e6f9f0; border: 2px solid var(--ok); }
-.msg.bad { color: var(--bad); background: #ffebee; border: 2px solid var(--bad); }
+.msg.ok { color: var(--ok-shadow); background: #e5f5f0; border: 2px solid var(--ok); }
+.msg.bad { color: var(--bad); background: #fbebeb; border: 2px solid var(--bad); }
 .prog { font-size: 16px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; background: var(--mat); display: inline-block; padding: 4px 12px; border-radius: 20px; border: 2px solid var(--line); }
 .box {
   border: 2px solid var(--line); border-radius: 24px; padding: 24px; background: var(--mat);
@@ -263,9 +263,9 @@ svg { display: block; width: 100%; min-width: 600px; height: auto; }
 .num-chip:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--line), 0 2px 5px rgba(0,0,0,0.03); }
 .num-chip.on {
   background: var(--c1); border-color: var(--c1); color: white;
-  box-shadow: 0 6px 0 var(--c1-shadow), 0 10px 15px rgba(0, 168, 255, 0.3);
+  box-shadow: 0 6px 0 var(--c1-shadow), 0 10px 15px rgba(21, 155, 181, 0.24);
 }
-.num-chip.on:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--c1-shadow), 0 2px 5px rgba(0, 168, 255, 0.3); }
+.num-chip.on:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--c1-shadow), 0 2px 5px rgba(21, 155, 181, 0.24); }
 .num {
   width: 4.5em; font: inherit; font-weight: 900; text-align: center;
   border: 3px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); padding: 8px;
@@ -314,8 +314,8 @@ button, input { touch-action: manipulation; }
 <body>
 
 <div class="wrap">
-  <h1>因數倍數跳跳看 <span class="icon-3d">🐸✨</span></h1>
-  <p class="sub">從零開始學倍數、因數、公倍數、公因數｜含短除法與輾轉相除法</p>
+  <h1>海洋數學探險 <span class="icon-3d">🌊🐬</span></h1>
+  <p class="sub">潛入因數、倍數與分數海域｜進階練習、短除法與輾轉相除法</p>
   <nav class="map" id="map" aria-label="九個階段"></nav>
   <section class="panel" id="panel"></section>
 </div>
@@ -454,7 +454,7 @@ function euclideanSvgDOM(w, h) {
     let st = svgBox(Math.min(w,h) * scale, '輾轉相除法長方形', maxW);
     let svg = st.firstChild;
     let currX = 0, currY = 0, currW = w, currH = h;
-    const colors = [css('--c1s'), '#e8f5e9', '#fff3cd', '#f3e5f5', '#ffebee'];
+    const colors = [css('--c1s'), '#e3f3ed', '#fff3cd', '#e9effb', '#f6e9eb'];
     let cIdx = 0;
     
     while(currW > 0 && currH > 0 && currW !== currH) {
@@ -474,10 +474,10 @@ function euclideanSvgDOM(w, h) {
 
 /* ================= 進度 ================= */
 const LV=[
- {t:'倍數 <span class="icon-3d">🐸</span>',s:'青蛙一次跳幾格'},
+ {t:'倍數 <span class="icon-3d">🐬</span>',s:'海豚每次前進幾格'},
  {t:'因數 <span class="icon-3d">✂️</span>',s:'能剛好切完幾份'},
- {t:'公倍數 <span class="icon-3d">🐸🐸</span>',s:'兩隻青蛙踩到同一格'},
- {t:'最小公倍數 <span class="icon-3d">👑</span>',s:'第一次踩到同一格'},
+ {t:'公倍數 <span class="icon-3d">🐬🐟</span>',s:'兩種海洋生物游到同一格'},
+ {t:'最小公倍數 <span class="icon-3d">👑</span>',s:'第一次游到同一格'},
  {t:'公因數 <span class="icon-3d">📏</span>',s:'同一把尺量兩條布'},
  {t:'最大公因數 <span class="icon-3d">🏆</span>',s:'最長的那把尺'},
  {t:'用到分數 <span class="icon-3d">🍰</span>',s:'約分和通分'},
@@ -631,26 +631,28 @@ function numberLine(N,frogs,opts){
 /* ================= 第 1 階 倍數 ================= */
 function L1(p){
   p.append(el('<p class="lbl">先做做看 💡</p>'));
-  p.append(el('<p class="say">小青蛙每次都跳<b>一樣多格</b>。選一隻青蛙，按「跳一下」，看看牠會踩到哪些數字。</p>'));
-  const n=G.step.n||3,k=G.step.j||0;
+  p.append(el('<p class="say">小海豚每次都前進<b>一樣多格</b>。選一隻海豚，按「前進一格」，看看牠會游到哪些數字。</p>'));
+  const n=G.step.n||7,k=G.step.j||0;
   const r=el('<div class="row"><span class="note">青蛙一次跳：</span></div>');
-  [2,3,4,5,6,7,8,9].forEach(v=>{const b=el(`<button class="btn" aria-pressed="${v===n}">${v} 格</button>`);b.onclick=()=>{G.step.n=v;G.step.j=0;render()};r.append(b)});p.append(r);
+  [4,5,6,7,8,9,10,11,12].forEach(v=>{const b=el(`<button class="btn" aria-pressed="${v===n}">${v} 格</button>`);b.onclick=()=>{G.step.n=v;G.step.j=0;render()};r.append(b)});p.append(r);
   
   const r2=el('<div class="row"></div>');
-  const jb=el('<button class="btn primary">🐸 跳一下</button>');jb.disabled=(k+1)*n>40;jb.onclick=()=>{G.step.j=k+1;render()};
+  const jb=el('<button class="btn primary">🐬 前進一格</button>');jb.disabled=(k+1)*n>60;jb.onclick=()=>{G.step.j=k+1;render()};
   const rb=el('<button class="btn">🔄 回到 0</button>');rb.onclick=()=>{G.step.j=0;render()};
   r2.append(jb,rb);p.append(r2);
   
-  p.append(numberLine(40,[{n,k}]));
+  p.append(numberLine(60,[{n,k}]));
   const ms=mults(n,k*n);
   p.append(el(`<div class="eq">${ms.length?ms.map((m,i)=>`<span>${n}×${i+1}＝<b style="color:var(--accent)">${m}</b></span>`).join('　'):'還沒跳...'}</div>`));
-  if(ms.length>=3)p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#fef0f4; border:2px solid var(--accent); color:var(--ink);">青蛙踩到的 ${ms.join('、')}……都是 <b style="color:var(--accent); font-size:22px;">${n} 的倍數</b>。${n} 的倍數就是 ${n}×1、${n}×2、${n}×3……</p>`));
+  if(ms.length>=3)p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#e7f5f7; border:2px solid var(--accent); color:var(--ink);">海豚游過的 ${ms.join('、')}……都是 <b style="color:var(--accent); font-size:22px;">${n} 的倍數</b>。${n} 的倍數就是 ${n}×1、${n}×2、${n}×3……</p>`));
   
   practice(p,[
-    (b,ok)=>chips(b,'把 30 以內 <b>4 的倍數</b>全部點起來。',30,mults(4,30),x=>`${x} 不在 4 一格一格跳的路上（4×1、4×2…）。`,ok),
-    (b,ok)=>choice(b,'27 是 3 的倍數嗎？',['是','不是'],0,['3×9＝27，青蛙跳 9 次就到了。','3×9＝27，算算看。'],ok),
-    (b,ok)=>choice(b,'20 是 6 的倍數嗎？',['是','不是'],1,['6×3＝18、6×4＝24，20 被跳過了。','6×3＝18、6×4＝24，青蛙不會踩到 20。'],ok),
-    (b,ok)=>numIn(b,'7 的倍數，從小到大第 5 個是：',35,v=>`7×5＝？（你寫了 ${v}）`,ok)
+    (b,ok)=>chips(b,'把 56 以內 <b>7 的倍數</b>全部點起來。',56,mults(7,56),x=>`${x} 不在 7 一格一格跳的路上（7×1、7×2…）。`,ok),
+    (b,ok)=>choice(b,'54 是 9 的倍數嗎？',['是','不是'],0,['9×6＝54，剛好可以整除。','9×6＝54，再試著用 9 的倍數檢查。'],ok),
+    (b,ok)=>choice(b,'58 是 8 的倍數嗎？',['是','不是'],1,['8×7＝56、8×8＝64，58 不是 8 的倍數。','8×7＝56、8×8＝64，中間沒有 58。'],ok),
+    (b,ok)=>numIn(b,'11 的倍數，從小到大第 8 個是：',88,v=>`11×8＝？（你寫了 ${v}）`,ok),
+    (b,ok)=>numIn(b,'13 的倍數中，最接近但小於 100 的數是：',91,v=>`13×7＝？（你寫了 ${v}）`,ok),
+    (b,ok)=>choice(b,'126 是 9 的倍數嗎？',['是','不是'],0,['1＋2＋6＝9，126 可以被 9 整除。','把各位數字相加，再用 9 的倍數判斷。'],ok)
   ]);
 }
 
@@ -670,11 +672,11 @@ function cloth(x,y,w,h,N,s,colVar,label){
 /* ---------- 第 2 階 因數 ---------- */
 function L2(p){
   p.append(el('<p class="lbl">先做做看 💡</p>'));
-  const N=G.step.N||12,s=G.step.s||0,found=G.step.found||(G.step.found=[]);
+  const N=G.step.N||36,s=G.step.s||0,found=G.step.found||(G.step.found=[]);
   p.append(el(`<p class="say">一條布有 <b style="font-size:26px;">${N} 格</b>。要剪成<b>一樣長</b>的小段，而且<b>不能剩</b>。每段剪幾格，才能剛好剪完？</p>`));
   
   const r0=el('<div class="row"><span class="note">換一條布：</span></div>');
-  [12,18,20,24,7].forEach(v=>{const b=el(`<button class="btn" aria-pressed="${v===N}">${v} 格</button>`);
+  [36,48,56,72,77].forEach(v=>{const b=el(`<button class="btn" aria-pressed="${v===N}">${v} 格</button>`);
     b.onclick=()=>{G.step.N=v;G.step.s=0;G.step.found=[];render()};r0.append(b)});p.append(r0);
     
   const r1=el('<div class="row"><span class="note">每段剪：</span></div>');
@@ -701,50 +703,53 @@ function L2(p){
   }
   
   practice(p,[
-    (b,ok)=>chips(b,'把 <b>12 的因數</b>全部點起來。',12,facts(12),x=>`${x} 不能把 12 剛好分完（12÷${x} 有餘數）。`,ok),
-    (b,ok)=>choice(b,'8 是 24 的因數嗎？',['是','不是'],0,['24÷8＝3，剛好分完，所以 8 是 24 的因數。','24÷8＝3 沒有餘數，再算算看。'],ok),
-    (b,ok)=>choice(b,'5 是 18 的因數嗎？',['是','不是'],1,['18÷5＝3 …… 3，會剩 3 格。','18÷5 會剩下 3，不能剛好分完。'],ok),
-    (b,ok)=>numIn(b,'20 一共有幾個因數？',6,v=>`試試 1、2、4、5、10、20，數數看。（你寫了 ${v}）`,ok)
+    (b,ok)=>chips(b,'把 <b>36 的因數</b>全部點起來。',36,facts(36),x=>`${x} 不能把 36 剛好分完（36÷${x} 有餘數）。`,ok),
+    (b,ok)=>choice(b,'9 是 72 的因數嗎？',['是','不是'],0,['72÷9＝8，剛好分完，所以 9 是 72 的因數。','檢查 72 除以 9 是否沒有餘數。'],ok),
+    (b,ok)=>choice(b,'8 是 54 的因數嗎？',['是','不是'],1,['54÷8 會剩 6，不能整除。','54÷8＝6……6，會有餘數。'],ok),
+    (b,ok)=>numIn(b,'48 一共有幾個正因數？',10,v=>`試列出 48 的因數配對，再數一數。（你寫了 ${v}）`,ok),
+    (b,ok)=>choice(b,'哪一個數是 84 的因數？',['9','12','16','20'],1,['84÷9 有餘數。','84÷12＝7，能整除。','84÷16 有餘數。','84÷20 有餘數。'],ok),
+    (b,ok)=>numIn(b,'96 的最大真因數是：',48,v=>`最大真因數小於 96，並能整除 96。（你寫了 ${v}）`,ok)
   ]);
 }
 
 /* ---------- 第 3 階 公倍數 ---------- */
-const PAIRS3=[[2,3],[3,4],[4,6],[2,5],[6,9]];
+const PAIRS3=[[6,8],[8,12],[9,12],[7,10],[10,15]];
 function L3(p){
   p.append(el('<p class="lbl">先做做看 💡</p>'));
   const pr=G.step.pr||PAIRS3[0],a=pr[0],b=pr[1];
-  p.append(el(`<p class="say">兩隻青蛙都從 0 出發。<b style="color:var(--c1)">紅蛙</b>一次跳 ${a} 格，<b style="color:var(--c2)">藍蛙</b>一次跳 ${b} 格。兩隻<b>都踩到</b>的格子（發光黃點）就是<b>公倍數</b>。</p>`));
+  p.append(el(`<p class="say">兩種海洋生物都從 0 出發。<b style="color:var(--c1)">海豚</b>每次前進 ${a} 格，<b style="color:var(--c2)">海龜</b>每次前進 ${b} 格。牠們<b>都到達</b>的格子（發光黃點）就是<b>公倍數</b>。</p>`));
   
   const r=el('<div class="row"><span class="note">換一組：</span></div>');
   PAIRS3.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===a&&q[1]===b}">${q[0]} 和 ${q[1]}</button>`);bt.onclick=()=>{G.step.pr=q;render()};r.append(bt)});p.append(r);
   
-  p.append(numberLine(40,[{n:a,k:Math.floor(40/a)},{n:b,k:Math.floor(40/b)}],{h:220}));
-  const ma=mults(a,40),mb=mults(b,40),cm=ma.filter(x=>x%b===0);
+  p.append(numberLine(60,[{n:a,k:Math.floor(60/a)},{n:b,k:Math.floor(60/b)}],{h:220}));
+  const ma=mults(a,60),mb=mults(b,60),cm=ma.filter(x=>x%b===0);
   
   p.append(el(`<div class="eq" style="flex-direction:column;align-items:flex-start;gap:8px">
     <span>${a} 的倍數：${ma.join('、')}</span>
     <span>${b} 的倍數：${mb.join('、')}</span>
-    <span style="background:#fff3cd; padding:4px 12px; border-radius:8px; border:2px solid #ffeeba;"><b>🎯 公倍數：<span style="color:#d39e00">${cm.join('、')}</span></b>……</span>
+    <span style="background:#fff6dc; padding:4px 12px; border-radius:8px; border:2px solid #eddaa1;"><b>🎯 公倍數：<span style="color:#9a7624">${cm.join('、')}</span></b>……</span>
   </div>`));
   
   p.append(el(`<p class="note">公倍數是「${a} 的倍數，同時也是 ${b} 的倍數」。往後還有很多，永遠找不完。</p>`));
   
   practice(p,[
-    (b,ok)=>chips(b,'把 30 以內 <b>2 和 3 的公倍數</b>全部點起來。',30,mults(2,30).filter(x=>x%3===0),x=>x%2?`${x} 不是 2 的倍數。`:`${x} 不是 3 的倍數。`,ok),
-    (b,ok)=>choice(b,'12 是 3 和 4 的公倍數嗎？',['是','不是'],0,['3×4＝12、4×3＝12，兩隻青蛙都會踩到 12。','3×4＝12、4×3＝12，算算看。'],ok),
-    (b,ok)=>choice(b,'20 是 4 和 6 的公倍數嗎？',['是','不是'],1,['4×5＝20，但 6 的倍數是 6、12、18、24，沒有 20。','6 的倍數是 6、12、18、24，沒有 20。'],ok),
-    (b,ok)=>numIn(b,'6 和 8 的公倍數，48 以內共有幾個？',2,v=>`6 和 8 都踩到的是 24、48。數數看。（你寫了 ${v}）`,ok, ()=>showShortDiv(6,8,'lcm')),
-    (b,ok)=>choice(b,'哪一個是 4 和 10 的公倍數？',['20','24','30','35'],0,['4×5＝20，10×2＝20。','24 不是 10 的倍數。','30 不是 4 的倍數。','35 不是 4 的倍數。'],ok, ()=>showShortDiv(4,10,'lcm'))
+    (b,ok)=>chips(b,'把 120 以內 <b>8 和 12 的公倍數</b>全部點起來。',120,mults(8,120).filter(x=>x%12===0),x=>x%8?`${x} 不是 8 的倍數。`:`${x} 不是 12 的倍數。`,ok),
+    (b,ok)=>choice(b,'45 是 9 和 15 的公倍數嗎？',['是','不是'],0,['9×5＝45、15×3＝45，兩者都整除。','分別檢查 45 能否被 9 和 15 整除。'],ok),
+    (b,ok)=>choice(b,'70 是 7 和 12 的公倍數嗎？',['是','不是'],1,['70 是 7 的倍數，但不是 12 的倍數。','12×5＝60、12×6＝72，沒有 70。'],ok),
+    (b,ok)=>numIn(b,'9 和 12 的公倍數，180 以內共有幾個？',5,v=>`最小公倍數是 36，列出 36、72、108、144、180。（你寫了 ${v}）`,ok, ()=>showShortDiv(9,12,'lcm')),
+    (b,ok)=>choice(b,'哪一個是 10 和 15 的公倍數？',['45','60','70','90'],1,['45 不是 10 的倍數。','10×6＝60、15×4＝60。','70 不是 15 的倍數。','90 不是 10 的倍數。'],ok, ()=>showShortDiv(10,15,'lcm')),
+    (b,ok)=>numIn(b,'8 和 14 的公倍數中，最小且大於 100 的數是：',112,v=>`先求最小公倍數，再找大於 100 的倍數。（你寫了 ${v}）`,ok, ()=>showShortDiv(8,14,'lcm'))
   ]);
 }
 
 /* ---------- 第 4 階 最小公倍數 ---------- */
-const PAIRS4=[[2,3],[4,6],[6,8],[5,7],[4,10],[9,12]];
+const PAIRS4=[[8,12],[9,15],[7,12],[10,14],[12,18],[16,20]];
 function lcmHint(a,b){return v=>{const L=lcm(a,b);if(v%a||v%b)return `${v} 還不是 ${a} 和 ${b} 的公倍數。`;if(v>L)return `${v} 是公倍數，但不是最小的，往前找找。`;return '再算算看。'}}
 function L4(p){
   p.append(el('<p class="lbl">先做做看 💡</p>'));
-  const pr=G.step.pr4||PAIRS4[0],a=pr[0],b=pr[1],L=lcm(a,b),N=Math.min(60,L*2);
-  p.append(el(`<p class="say">公倍數有很多個，其中<b>第一次</b>兩隻青蛙踩到同一格的，就是<b>最小公倍數</b> 👑。</p>`));
+  const pr=G.step.pr4||PAIRS4[0],a=pr[0],b=pr[1],L=lcm(a,b),N=Math.max(60,Math.min(120,L*2));
+  p.append(el(`<p class="say">公倍數有很多個，其中<b>第一次</b>兩種海洋生物游到同一格的，就是<b>最小公倍數</b> 👑。</p>`));
   
   const r=el('<div class="row"><span class="note">換一組：</span></div>');
   PAIRS4.forEach(q=>{const bt=el(`<button class="btn" aria-pressed="${q[0]===a&&q[1]===b}">${q[0]} 和 ${q[1]}</button>`);bt.onclick=()=>{G.step.pr4=q;render()};r.append(bt)});p.append(r);
@@ -759,22 +764,24 @@ function L4(p){
   p.append(el(`<div class="eq" style="flex-direction:column;align-items:flex-start;gap:8px">
     <span>${a} 的倍數：${mults(a,L).join('、')}</span>
     <span>${b} 的倍數：${mults(b,L).join('、')}</span>
-    <span style="background:#ffebee; padding:4px 12px; border-radius:8px; border:2px solid #ffcdd2;"><b>🏆 ${a} 和 ${b} 的最小公倍數 ＝ <span style="color:var(--accent-shadow); font-size:32px;">${L}</span></b></span>
+    <span style="background:#e7f5f7; padding:4px 12px; border-radius:8px; border:2px solid #b9dfe5;"><b>🏆 ${a} 和 ${b} 的最小公倍數 ＝ <span style="color:var(--accent-shadow); font-size:32px;">${L}</span></b></span>
   </div>`));
   
   p.append(el(`<p class="note" style="padding:10px 16px; background:#f4f7f6; border-radius:12px; border:2px dashed #b0bec5; color:#455a64;">💡 <b>小技巧：</b>從比較大的數 ${big} 的倍數開始（${big}、${big*2}、${big*3}……），一個一個檢查是不是 ${small} 的倍數，第一個找到的就是最小公倍數。</p>`));
   
   practice(p,[
-    (b,ok)=>numIn(b,'6 和 9 的最小公倍數是：',18,lcmHint(6,9),ok, ()=>showShortDiv(6,9,'lcm')),
-    (b,ok)=>numIn(b,'4 和 10 的最小公倍數是：',20,lcmHint(4,10),ok, ()=>showShortDiv(4,10,'lcm')),
-    (b,ok)=>numIn(b,'3 和 5 的最小公倍數是：',15,lcmHint(3,5),ok, ()=>showShortDiv(3,5,'lcm')),
-    (b,ok)=>numIn(b,'A 公車每 6 分鐘一班，B 公車每 8 分鐘一班。兩路公車同時發車後，至少要幾分鐘才會再同時發車？',24,lcmHint(6,8),ok, ()=>showShortDiv(6,8,'lcm')),
-    (b,ok)=>numIn(b,'12 和 18 的最小公倍數是：',36,lcmHint(12,18),ok, ()=>showShortDiv(12,18,'lcm'))
+    (b,ok)=>numIn(b,'14 和 21 的最小公倍數是：',42,lcmHint(14,21),ok, ()=>showShortDiv(14,21,'lcm')),
+    (b,ok)=>numIn(b,'18 和 30 的最小公倍數是：',90,lcmHint(18,30),ok, ()=>showShortDiv(18,30,'lcm')),
+    (b,ok)=>numIn(b,'16 和 24 的最小公倍數是：',48,lcmHint(16,24),ok, ()=>showShortDiv(16,24,'lcm')),
+    (b,ok)=>numIn(b,'A 燈每 14 秒閃一次，B 燈每 20 秒閃一次。同時亮起後，幾秒後會再次同時亮起？',140,lcmHint(14,20),ok, ()=>showShortDiv(14,20,'lcm')),
+    (b,ok)=>numIn(b,'28 和 42 的最小公倍數是：',84,lcmHint(28,42),ok, ()=>showShortDiv(28,42,'lcm')),
+    (b,ok)=>choice(b,'18 和 24 的最小公倍數是哪一個？',['48','72','96','144'],1,['48 不是 18 的倍數。','18×4＝72，24×3＝72。','96 不是 18 的倍數。','144 是公倍數，但不是最小的。'],ok, ()=>showShortDiv(18,24,'lcm')),
+    (b,ok)=>numIn(b,'兩艘船每 18 天與 24 天回港一次，今天同時回港，幾天後再同時回港？',72,lcmHint(18,24),ok, ()=>showShortDiv(18,24,'lcm'))
   ]);
 }
 
 /* ---------- 第 5 階 公因數 ---------- */
-const PAIRS5=[[12,18],[8,12],[16,24],[15,20]];
+const PAIRS5=[[24,36],[28,42],[32,48],[35,49]];
 function L5(p){
   p.append(el('<p class="lbl">先做做看 💡</p>'));
   const pr=G.step.pr5||PAIRS5[0],a=pr[0],b=pr[1],s=G.step.s||0,found=G.step.found||(G.step.found=[]);
@@ -805,19 +812,21 @@ function L5(p){
   p.append(el(`<div class="eq">已找到的公因數：<b style="color:var(--ok-shadow)">${got.length?got.join('、'):'（還沒有）'}</b></div>`));
   
   if(cf.every(f=>found.includes(f))) {
-    p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#e8f5e9; border:2px solid var(--ok); color:#1b5e20;">全部找到了！🎉 ${a} 和 ${b} 的公因數有 <b style="font-size:22px">${cf.join('、')}</b>。公因數就是「兩個數都能整除」的數。</p>`));
+    p.append(el(`<p class="note" style="font-size:19px; padding:10px 16px; background:#e5f5f0; border:2px solid var(--ok); color:var(--ok-shadow);">全部找到了！🎉 ${a} 和 ${b} 的公因數有 <b style="font-size:22px">${cf.join('、')}</b>。公因數就是「兩個數都能整除」的數。</p>`));
   }
   
   practice(p,[
-    (b,ok)=>chips(b,'把 <b>12 和 18 的公因數</b>全部點起來。',18,facts(12).filter(x=>18%x===0),x=>12%x?`${x} 不是 12 的因數。`:`${x} 不是 18 的因數。`,ok),
-    (b,ok)=>choice(b,'4 是 8 和 12 的公因數嗎？',['是','不是'],0,['8÷4＝2、12÷4＝3，兩個都整除。','8÷4＝2、12÷4＝3，算算看。'],ok),
-    (b,ok)=>choice(b,'6 是 12 和 15 的公因數嗎？',['是','不是'],1,['12÷6＝2，但 15÷6 會剩 3。','15÷6 會剩 3，不能整除。'],ok),
-    (b,ok)=>numIn(b,'16 和 24 的公因數共有幾個？',4,v=>`公因數是 1、2、4、8。數數看。（你寫了 ${v}）`,ok, ()=>showShortDiv(16,24,'gcd'))
+    (b,ok)=>chips(b,'把 <b>28 和 42 的公因數</b>全部點起來。',28,facts(28).filter(x=>42%x===0),x=>28%x?`${x} 不是 28 的因數。`:`${x} 不是 42 的因數。`,ok),
+    (b,ok)=>choice(b,'7 是 35 和 56 的公因數嗎？',['是','不是'],0,['35÷7＝5、56÷7＝8，兩個都整除。','檢查 35 與 56 除以 7 是否都沒有餘數。'],ok),
+    (b,ok)=>choice(b,'9 是 36 和 50 的公因數嗎？',['是','不是'],1,['9 不能整除 50，所以不是公因數。','36÷9＝4，但 50÷9 有餘數。'],ok),
+    (b,ok)=>numIn(b,'54 和 72 的公因數共有幾個？',6,v=>`先找最大公因數 18，再列出 18 的正因數。（你寫了 ${v}）`,ok, ()=>showShortDiv(54,72,'gcd')),
+    (b,ok)=>choice(b,'哪一個是 48 和 80 的公因數？',['6','16','18','24'],1,['80 不能被 6 整除。','48÷16＝3、80÷16＝5，兩數都能整除。','48 不能被 18 整除。','80 不能被 24 整除。'],ok),
+    (b,ok)=>choice(b,'12 是 48 和 84 的公因數嗎？',['是','不是'],0,['48÷12＝4、84÷12＝7，兩數都能整除。','分別檢查 48 與 84 除以 12。'],ok)
   ]);
 }
 
 /* ---------- 第 6 階 最大公因數 ---------- */
-const PAIRS6=[[12,18],[8,12],[16,24],[15,20],[18,30]];
+const PAIRS6=[[36,60],[42,70],[48,72],[45,75],[56,84]];
 function gcdHint(a,b){return v=>{const g=gcd(a,b);if(v<=0||a%v||b%v)return `${v} 不是 ${a} 和 ${b} 的公因數。`;if(v<g)return `${v} 是公因數，但還有更大的。`;return '再算算看。'}}
 function L6(p){
   p.append(el('<p class="lbl">先做做看 💡</p>'));
@@ -836,26 +845,27 @@ function L6(p){
     <span>${a} 的因數：${fa.join('、')}</span>
     <span>${b} 的因數：${fb.join('、')}</span>
     <span>公因數：${cf.join('、')}</span>
-    <span style="background:#fff8e1; padding:6px 16px; border-radius:12px; border:2px solid #ffecb3;"><b>🏆 ${a} 和 ${b} 的最大公因數 ＝ <span style="color:#f57f17; font-size:32px">${g}</span></b></span>
+    <span style="background:#fff6dc; padding:6px 16px; border-radius:12px; border:2px solid #eddaa1;"><b>🏆 ${a} 和 ${b} 的最大公因數 ＝ <span style="color:#9a7624; font-size:32px">${g}</span></b></span>
   </div>`));
   
   p.append(el(`<p class="note" style="padding:10px 16px; background:#f4f7f6; border-radius:12px; border:2px dashed #b0bec5; color:#455a64;">💡 <b>小技巧：</b>從比較小的數 ${Math.min(a,b)} 的因數開始，由大往小檢查，第一個也是另一個數的因數的，就是最大公因數。</p>`));
   
   practice(p,[
-    (b,ok)=>numIn(b,'12 和 16 的最大公因數是：',4,gcdHint(12,16),ok, ()=>showShortDiv(12,16,'gcd')),
-    (b,ok)=>numIn(b,'18 和 24 的最大公因數是：',6,gcdHint(18,24),ok, ()=>showShortDiv(18,24,'gcd')),
-    (b,ok)=>numIn(b,'20 和 30 的最大公因數是：',10,gcdHint(20,30),ok, ()=>showShortDiv(20,30,'gcd')),
-    (b,ok)=>numIn(b,'有 24 格的藍布和 36 格的紫布，要剪成一樣長、不能剩的小段，每段最長幾格？',12,gcdHint(24,36),ok, ()=>showShortDiv(24,36,'gcd')),
-    (b,ok)=>choice(b,'7 和 9 的最大公因數是多少？',['1','3','7','9'],0,['7 和 9 除了 1 以外沒有共同的因數。','3 不是 7 的因數。','7 不是 9 的因數。','9 不是 7 的因數。'],ok, ()=>showShortDiv(7,9,'gcd')),
-    (b,ok)=>numIn(b,'15 和 45 的最大公因數是：',15,gcdHint(15,45),ok, ()=>showShortDiv(15,45,'gcd'))
+    (b,ok)=>numIn(b,'42 和 70 的最大公因數是：',14,gcdHint(42,70),ok, ()=>showShortDiv(42,70,'gcd')),
+    (b,ok)=>numIn(b,'54 和 90 的最大公因數是：',18,gcdHint(54,90),ok, ()=>showShortDiv(54,90,'gcd')),
+    (b,ok)=>numIn(b,'56 和 84 的最大公因數是：',28,gcdHint(56,84),ok, ()=>showShortDiv(56,84,'gcd')),
+    (b,ok)=>numIn(b,'有 96 顆白珠和 144 顆藍珠，要平均分裝且不剩，每袋最多可裝幾顆？',48,gcdHint(96,144),ok, ()=>showShortDiv(96,144,'gcd')),
+    (b,ok)=>choice(b,'11 和 15 的最大公因數是多少？',['1','3','5','11'],0,['11 與 15 只有公因數 1。','3 不是 11 的因數。','5 不是 11 的因數。','11 不是 15 的因數。'],ok, ()=>showShortDiv(11,15,'gcd')),
+    (b,ok)=>numIn(b,'84 和 126 的最大公因數是：',42,gcdHint(84,126),ok, ()=>showShortDiv(84,126,'gcd')),
+    (b,ok)=>numIn(b,'兩條長 135 公尺與 180 公尺的繩子要剪成等長且最長的小段，每段長幾公尺？',45,gcdHint(135,180),ok, ()=>showShortDiv(135,180,'gcd'))
   ]);
 }
 
 /* ---------- 第 7 階 用到分數 ---------- */
 const FIN=(i0,i1)=>`<span class="frac"><span>${inp('i'+i0,'分子')}</span><span>${inp('i'+i1,'分母')}</span></span>`;
 const FINN=(i,den)=>`<span class="frac"><span>${inp('i'+i,'分子')}</span><span>${den}</span></span>`;
-const FR7=[[8,12],[6,9],[12,18],[10,15]];
-const PA7=[[[1,4],[1,6]],[[1,2],[1,3]],[[3,4],[5,6]],[[2,3],[3,4]]];
+const FR7=[[42,56],[45,60],[54,72],[63,84]];
+const PA7=[[[3,8],[5,12]],[[5,9],[7,12]],[[7,10],[5,12]],[[5,8],[7,10]]];
 function L7(p){
   p.append(el('<p class="lbl">先做做看：約分 🍰</p>'));
   const f=G.step.f||FR7[0],g=gcd(f[0],f[1]);
@@ -890,15 +900,16 @@ function L7(p){
   p.append(el(`<div class="eq" style="font-size:22px; justify-content:center;">${fr(y[0],y[1])} ＝ ${fr(`${y[0]}×${L/y[1]}`,`${y[1]}×${L/y[1]}`)} ＝ ${fr(ny,L)}</div>`));
   
   const sg=gcd(sum,L);
-  p.append(el(`<div class="eq" style="background:#fff8e1; border-color:#ffe082; justify-content:center;">${fr(x[0],x[1])} ＋ ${fr(y[0],y[1])} ＝ ${fr(nx,L)} ＋ ${fr(ny,L)} ＝ ${fr(sum,L)}${sum>L||sg>1?` ＝ <b style="color:var(--accent-shadow)">${mixed(sum,L)}</b>`:''}</div>`));
+  p.append(el(`<div class="eq" style="background:#fff6dc; border-color:#eddaa1; justify-content:center;">${fr(x[0],x[1])} ＋ ${fr(y[0],y[1])} ＝ ${fr(nx,L)} ＋ ${fr(ny,L)} ＝ ${fr(sum,L)}${sum>L||sg>1?` ＝ <b style="color:var(--accent-shadow)">${mixed(sum,L)}</b>`:''}</div>`));
   
   practice(p,[
-    (b,ok)=>choice(b,'把 12/18 約分，分子分母同除以多少，一次就能約成最簡分數？',['2','3','6','9'],2,['除以 2 得到 6/9，還能再約。','除以 3 得到 4/6，還能再約。','12 和 18 的最大公因數是 6，12/18＝2/3。','9 不是 12 的因數。'],ok, ()=>showShortDiv(12,18,'frac')),
-    (b,ok)=>fillIn(b,`把 ${fr(18,24)} 約成最簡分數： ＝ ${FIN(0,1)}`,[3,4],ok,v=>(v[0]*24===v[1]*18)?'大小對了，但還能再約，找最大公因數。':'分子分母要同除以同一個數。', ()=>showShortDiv(18,24,'frac')),
-    (b,ok)=>choice(b,'把 1/4 和 1/6 通分，分母最好用哪一個？',['10','12','24'],1,['10 不是 4 的倍數。','4 和 6 的最小公倍數是 12。','24 也可以，但不是最小的，數字會比較大。'],ok, ()=>showShortDiv(4,6,'lcm')),
-    (b,ok)=>fillIn(b,`${fr(1,4)} ＝ ${FINN(0,12)}　　${fr(1,6)} ＝ ${FINN(1,12)}`,[3,2],ok, null, ()=>showShortDiv(4,6,'lcm')),
-    (b,ok)=>fillIn(b,`${fr(3,4)} ＋ ${fr(5,6)} ＝ ${FINN(0,12)} ＋ ${FINN(1,12)}`,[9,10],ok, null, ()=>showShortDiv(4,6,'lcm')),
-    (b,ok)=>choice(b,'3/4 和 5/6，哪一個比較大？',['3/4','5/6'],1,['3/4＝9/12，5/6＝10/12，所以 3/4 比較小。','3/4＝9/12，5/6＝10/12，5/6 比較大。'],ok, ()=>showShortDiv(4,6,'lcm'))
+    (b,ok)=>choice(b,'把 42/56 約分，分子分母同除以多少，一次就能約成最簡分數？',['2','7','14','21'],2,['除以 2 後還能繼續約分。','除以 7 得到 6/8，還能再約。','42 和 56 的最大公因數是 14，除以 14 得到 3/4。','21 不能整除 56。'],ok, ()=>showShortDiv(42,56,'frac')),
+    (b,ok)=>fillIn(b,`把 ${fr(45,60)} 約成最簡分數： ＝ ${FIN(0,1)}`,[3,4],ok,v=>(v[0]*60===v[1]*45)?'大小對了，但還能再約，找最大公因數。':'分子分母要同除以同一個數。', ()=>showShortDiv(45,60,'frac')),
+    (b,ok)=>choice(b,'把 5/12 和 7/18 通分，最小公分母是多少？',['30','36','72'],1,['30 不是 12 的倍數。','12 和 18 的最小公倍數是 36。','72 也可通分，但不是最小公分母。'],ok, ()=>showShortDiv(12,18,'lcm')),
+    (b,ok)=>fillIn(b,`${fr(5,12)} ＝ ${FINN(0,36)}　　${fr(7,18)} ＝ ${FINN(1,36)}`,[15,14],ok, null, ()=>showShortDiv(12,18,'lcm')),
+    (b,ok)=>fillIn(b,`${fr(7,10)} ＋ ${fr(5,12)} ＝ ${FINN(0,60)} ＋ ${FINN(1,60)}`,[42,25],ok, null, ()=>showShortDiv(10,12,'lcm')),
+    (b,ok)=>choice(b,'5/8 和 7/10，哪一個比較大？',['5/8','7/10'],1,['5/8＝25/40，7/10＝28/40，所以 5/8 較小。','5/8＝25/40，7/10＝28/40，所以 7/10 較大。'],ok, ()=>showShortDiv(8,10,'lcm')),
+    (b,ok)=>fillIn(b,`${fr(11,15)} － ${fr(5,12)} ＝ ${FINN(0,60)} － ${FINN(1,60)}`,[44,25],ok, null, ()=>showShortDiv(15,12,'lcm'))
   ]);
 }
 
@@ -909,15 +920,17 @@ function L8(p){
   p.append(el(`<p class="say">短除法可以<b>同時求出最大公因數和最小公倍數</b>。把兩個數並排寫好，用一個能同時整除它們的質數去除，把商寫在下面。一直除下去，直到最下面一行的兩個數沒有質數能同時整除（互質）為止。</p>`));
   
   const box = el('<div class="box" style="align-items:center;"></div>');
-  box.innerHTML += showShortDiv(24, 60, 'both');
-  box.innerHTML += `<p class="note" style="margin-top:16px; font-size:18px;">💡 左邊的質數都能同時整除兩個數，所以它們的乘積就是<b>最大公因數</b>：2×2×3＝12。<br>💡 最下面剩下的 2 和 5 沒有除 1 以外的公因數。左邊的質數再乘以最下面一行的數，就是<b>最小公倍數</b>：2×2×3×2×5＝120。</p>`;
+  box.innerHTML += showShortDiv(42, 70, 'both');
+  box.innerHTML += `<p class="note" style="margin-top:16px; font-size:18px;">💡 左邊共同除數的乘積是<b>最大公因數</b>：2×7＝14。<br>💡 再乘上最下面互質的 3 和 5，得到<b>最小公倍數</b>：2×7×3×5＝210。</p>`;
   p.append(box);
   
   practice(p,[
-    (b,ok)=>numIn(b,'利用短除法，求 36 和 48 的最大公因數：',12,gcdHint(36,48),ok, ()=>showShortDiv(36,48,'gcd')),
-    (b,ok)=>numIn(b,'利用短除法，求 14 和 35 的最小公倍數：',70,lcmHint(14,35),ok, ()=>showShortDiv(14,35,'lcm')),
-    (b,ok)=>numIn(b,'利用短除法，求 30 和 45 的最大公因數：',15,gcdHint(30,45),ok, ()=>showShortDiv(30,45,'gcd')),
-    (b,ok)=>numIn(b,'利用短除法，求 12 和 18 的最小公倍數：',36,lcmHint(12,18),ok, ()=>showShortDiv(12,18,'lcm'))
+    (b,ok)=>numIn(b,'利用短除法，求 84 和 126 的最大公因數：',42,gcdHint(84,126),ok, ()=>showShortDiv(84,126,'gcd')),
+    (b,ok)=>numIn(b,'利用短除法，求 21 和 55 的最小公倍數：',1155,lcmHint(21,55),ok, ()=>showShortDiv(21,55,'lcm')),
+    (b,ok)=>numIn(b,'利用短除法，求 96 和 144 的最大公因數：',48,gcdHint(96,144),ok, ()=>showShortDiv(96,144,'gcd')),
+    (b,ok)=>numIn(b,'利用短除法，求 28 和 42 的最小公倍數：',84,lcmHint(28,42),ok, ()=>showShortDiv(28,42,'lcm')),
+    (b,ok)=>numIn(b,'利用短除法，求 72 和 120 的最大公因數：',24,gcdHint(72,120),ok, ()=>showShortDiv(72,120,'gcd')),
+    (b,ok)=>numIn(b,'利用短除法，求 32 和 45 的最小公倍數：',1440,lcmHint(32,45),ok, ()=>showShortDiv(32,45,'lcm'))
   ]);
 }
 
@@ -929,25 +942,27 @@ function L9(p){
   const st = el('<div class="box"></div>');
   st.innerHTML = `
     <div style="font-size:20px; font-weight:bold; color:var(--ink); line-height:1.8;">
-      以求 1071 和 462 的最大公因數為例：<br>
-      <span style="color:var(--c1-shadow)">1071</span> = 2 × <span style="color:var(--c2-shadow)">462</span> + <span style="color:var(--bad)">147</span><br>
-      <span style="color:var(--c2-shadow)">462</span> = 3 × <span style="color:var(--bad)">147</span> + <span style="color:var(--accent)">21</span><br>
-      <span style="color:var(--bad)">147</span> = 7 × <span style="color:var(--accent)">21</span> + <span style="color:var(--ok-shadow)">0</span><br>
-      🎉 餘數為 0，所以最大公因數是 <b style="color:var(--accent-shadow); font-size:26px;">21</b>！
+      以求 1260 和 882 的最大公因數為例：<br>
+      <span style="color:var(--c1-shadow)">1260</span> = 1 × <span style="color:var(--c2-shadow)">882</span> + <span style="color:var(--bad)">378</span><br>
+      <span style="color:var(--c2-shadow)">882</span> = 2 × <span style="color:var(--bad)">378</span> + <span style="color:var(--accent)">126</span><br>
+      <span style="color:var(--bad)">378</span> = 3 × <span style="color:var(--accent)">126</span> + <span style="color:var(--ok-shadow)">0</span><br>
+      🎉 餘數為 0，所以最大公因數是 <b style="color:var(--accent-shadow); font-size:26px;">126</b>！
     </div>
   `;
   p.append(st);
   
-  p.append(el(`<p class="say">📐 <b>用圖來看：裁正方形。</b><br>拿一個長 64、寬 40 的長方形，先裁下最大正方形，剩下再裁，直到裁滿為止。</p>`));
+  p.append(el(`<p class="say">📐 <b>用圖來看：裁正方形。</b><br>拿一個長 84、寬 60 的長方形，先裁下最大正方形，剩下再裁，直到裁滿為止。</p>`));
   const boxSvg = el('<div class="box" style="align-items:center;"></div>');
-  boxSvg.append(euclideanSvgDOM(64, 40));
-  boxSvg.innerHTML += `<p class="note" style="margin-top:16px;">最後一個裁滿的正方形是 8×8，所以 64 和 40 的最大公因數就是 <b>8</b>。</p>`;
+  boxSvg.append(euclideanSvgDOM(84, 60));
+  boxSvg.innerHTML += `<p class="note" style="margin-top:16px;">最後一個裁滿的正方形是 12×12，所以 84 和 60 的最大公因數就是 <b>12</b>。</p>`;
   p.append(boxSvg);
   
   practice(p,[
-    (b,ok)=>numIn(b,'用輾轉相除法求 64 和 40 的最大公因數：',8,gcdHint(64,40),ok, ()=>showEuclidean(64,40)),
-    (b,ok)=>numIn(b,'用輾轉相除法求 148 和 60 的最大公因數：',4,gcdHint(148,60),ok, ()=>showEuclidean(148,60)),
-    (b,ok)=>numIn(b,'用輾轉相除法求 1071 和 462 的最大公因數：',21,gcdHint(1071,462),ok, ()=>showEuclidean(1071,462))
+    (b,ok)=>numIn(b,'用輾轉相除法求 875 和 595 的最大公因數：',35,gcdHint(875,595),ok, ()=>showEuclidean(875,595)),
+    (b,ok)=>numIn(b,'用輾轉相除法求 1764 和 1176 的最大公因數：',588,gcdHint(1764,1176),ok, ()=>showEuclidean(1764,1176)),
+    (b,ok)=>numIn(b,'用輾轉相除法求 2024 和 748 的最大公因數：',44,gcdHint(2024,748),ok, ()=>showEuclidean(2024,748)),
+    (b,ok)=>numIn(b,'用輾轉相除法求 2310 和 1470 的最大公因數：',210,gcdHint(2310,1470),ok, ()=>showEuclidean(2310,1470)),
+    (b,ok)=>numIn(b,'用輾轉相除法求 1547 和 703 的最大公因數：',1,gcdHint(1547,703),ok, ()=>showEuclidean(1547,703))
   ]);
 }
 
@@ -964,18 +979,18 @@ function pickPairs(lo,hi,needG,n,ok){
   return out
 }
 function gen(lv){
-  if(lv===0)return shuffle([2,3,4,5,6,7,8,9,11,12]).map(n=>({q:`${n} 的倍數（由小到大寫 5 個）：`,a:mults(n,n*5).join('、')}));
-  if(lv===1)return shuffle([12,16,18,20,24,28,30,36,40,42]).map(n=>({q:`${n} 的因數有哪些？`,a:facts(n).join('、')}));
-  if(lv===2)return pickPairs(2,9,false,10,(a,b)=>lcm(a,b)<=50).map(([a,b])=>({q:`${a} 和 ${b} 的公倍數（50 以內）：`,a:mults(a,50).filter(x=>x%b===0).join('、')}));
-  if(lv===3)return pickPairs(2,12,false,10).map(([a,b])=>({q:`${a} 和 ${b} 的最小公倍數是：`,a:String(lcm(a,b))}));
-  if(lv===4)return pickPairs(6,36,true,10).map(([a,b])=>({q:`${a} 和 ${b} 的公因數有哪些？`,a:facts(a).filter(x=>b%x===0).join('、')}));
-  if(lv===5)return pickPairs(6,48,true,10).map(([a,b])=>({q:`${a} 和 ${b} 的最大公因數是：`,a:String(gcd(a,b))}));
+  if(lv===0)return shuffle(Array.from({length:17},(_,i)=>i+3)).slice(0,15).map(n=>({q:`${n} 的倍數（由小到大寫 5 個）：`,a:mults(n,n*5).join('、')}));
+  if(lv===1)return shuffle(Array.from({length:89},(_,i)=>i+32)).slice(0,15).map(n=>({q:`${n} 的正因數有哪些？`,a:facts(n).join('、')}));
+  if(lv===2)return pickPairs(4,18,false,15,(a,b)=>lcm(a,b)<=150).map(([a,b])=>({q:`${a} 和 ${b} 的公倍數（150 以內）：`,a:mults(a,150).filter(x=>x%b===0).join('、')}));
+  if(lv===3)return pickPairs(8,32,false,15,(a,b)=>lcm(a,b)<=600).map(([a,b])=>({q:`${a} 和 ${b} 的最小公倍數是：`,a:String(lcm(a,b))}));
+  if(lv===4)return pickPairs(12,90,true,15).map(([a,b])=>({q:`${a} 和 ${b} 的公因數有哪些？`,a:facts(a).filter(x=>b%x===0).join('、')}));
+  if(lv===5)return pickPairs(20,150,true,15).map(([a,b])=>({q:`${a} 和 ${b} 的最大公因數是：`,a:String(gcd(a,b))}));
   
   // Level 7: 分數
   if (lv===6) {
     const out=[];
-    pickPairs(6,36,true,5).forEach(([a,b])=>{const g=gcd(a,b);out.push({q:`把 ${a}/${b} 約成最簡分數：`,a:`${a/g}/${b/g}`})});
-    pickPairs(2,9,false,5).forEach(([c,d])=>{const a=rnd(1,c-1),b=rnd(1,d-1),L=lcm(c,d);
+    pickPairs(12,90,true,8).forEach(([a,b])=>{const n=Math.min(a,b),d=Math.max(a,b),g=gcd(n,d);out.push({q:`把 ${n}/${d} 約成最簡分數：`,a:`${n/g}/${d/g}`})});
+    pickPairs(5,20,false,7).forEach(([c,d])=>{const a=rnd(1,c-1),b=rnd(1,d-1),L=lcm(c,d);
       out.push({q:`把 ${a}/${c} 和 ${b}/${d} 通分（最小公分母）：`,a:`${a*L/c}/${L} 和 ${b*L/d}/${L}`})});
     return out;
   }
@@ -983,33 +998,33 @@ function gen(lv){
   // Level 8: 短除法
   if (lv===7) {
     const out=[];
-    pickPairs(12,60,true,5).forEach(([a,b])=>out.push({q:`用短除法求 ${a} 和 ${b} 的最大公因數：`,a:String(gcd(a,b))}));
-    pickPairs(4,20,true,5).forEach(([a,b])=>out.push({q:`用短除法求 ${a} 和 ${b} 的最小公倍數：`,a:String(lcm(a,b))}));
+    pickPairs(30,180,true,8).forEach(([a,b])=>out.push({q:`用短除法求 ${a} 和 ${b} 的最大公因數：`,a:String(gcd(a,b))}));
+    pickPairs(8,40,true,7).forEach(([a,b])=>out.push({q:`用短除法求 ${a} 和 ${b} 的最小公倍數：`,a:String(lcm(a,b))}));
     return out;
   }
   
   // Level 9: 輾轉相除法
-  return pickPairs(50,500,true,10).map(([a,b])=>({q:`用輾轉相除法求 ${a} 和 ${b} 的最大公因數：`,a:String(gcd(a,b))}));
+  return pickPairs(250,3000,true,15).map(([a,b])=>({q:`用輾轉相除法求 ${a} 和 ${b} 的最大公因數：`,a:String(gcd(a,b))}));
 }
 function drawSheet(items,title,showAns){
   const S=2,W=794,H=1123,c=document.createElement('canvas');c.width=W*S;c.height=H*S;
-  const x=c.getContext('2d');x.scale(S,S);x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#000';
+  const x=c.getContext('2d');x.scale(S,S);x.fillStyle='#f2fafb';x.fillRect(0,0,W,H);x.fillStyle='#153746';
   const F='"Nunito", "M PLUS Rounded 1c", "PingFang TC", "Microsoft JhengHei", sans-serif';
-  x.font=`900 32px ${F}`;x.fillText(title+(showAns?'（解答）':''),50,80);
-  x.font=`700 18px ${F}`;x.fillText('姓名：__________　日期：__________　得分：_____ / 10',50,120);
+  x.font=`900 30px ${F}`;x.fillText(title+(showAns?'（解答）':''),50,76);
+  x.font=`700 16px ${F}`;x.fillText('姓名：__________　日期：__________　得分：_____ / 15',50,112);
   items.forEach((it,i)=>{
-    const y=180+i*95;
-    x.fillStyle='#2b2b2b';x.font=`700 22px ${F}`;x.fillText(`${i+1}. ${it.q}`,50,y);
-    if(showAns){x.fillStyle='#ff3366';x.fillText('答：'+it.a,80,y+38)}
-    else{x.strokeStyle='#dbe4ec';x.lineWidth=2;x.beginPath();x.moveTo(80,y+42);x.lineTo(740,y+42);x.stroke()}
+    const y=158+i*63;
+    x.fillStyle='#153746';x.font=`700 18px ${F}`;x.fillText(`${i+1}. ${it.q}`,50,y,690);
+    if(showAns){x.fillStyle='#087f8c';x.font=`700 15px ${F}`;x.fillText('答：'+it.a,78,y+25,660)}
+    else{x.strokeStyle='#c9e1e7';x.lineWidth=2;x.beginPath();x.moveTo(78,y+31);x.lineTo(740,y+31);x.stroke()}
   });
   return c
 }
 function worksheet(p){
   p.append(el('<p class="lbl">練習單 📝</p>'));
   const box=el('<div class="box"></div>'),prev=el('<div class="wsprev" style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;"></div>'),row=el('<div class="row"></div>');
-  const gb=el('<button class="btn primary" style="font-size:20px;">📄 產生這階的練習單 (10題)</button>'),dl=el('<button class="btn" disabled>⬇️ 下載 PDF (題目+解答)</button>');
-  const title=`因數倍數練習單　第 ${G.lv+1} 階：${LV[G.lv].t.replace(/<[^>]*>?/gm, '')}`;let sheets=null;
+  const gb=el('<button class="btn primary" style="font-size:20px;">📄 產生這階的進階練習單 (15 題)</button>'),dl=el('<button class="btn" disabled>⬇️ 下載 PDF (題目+解答)</button>');
+  const title=`海洋數學探險　第 ${G.lv+1} 階：${LV[G.lv].t.replace(/<[^>]*>?/gm, '')}`;let sheets=null;
   
   gb.onclick=async()=>{
     try{await document.fonts.ready}catch(e){}
@@ -1022,7 +1037,7 @@ function worksheet(p){
     const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
     pdf.addImage(sheets[0].toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);pdf.addPage();
     pdf.addImage(sheets[1].toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);
-    pdf.save(`因數倍數練習單-進階版-第${G.lv+1}階.pdf`);
+    pdf.save(`海洋數學探險-進階練習單-第${G.lv+1}階.pdf`);
   };
   row.append(gb,dl);box.append(row,prev);p.append(box);
 }
